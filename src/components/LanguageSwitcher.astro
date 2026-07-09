@@ -1,0 +1,25 @@
+---
+import { languages, routes, type Lang, type RouteKey } from '../i18n/ui';
+
+interface Props {
+	lang: Lang;
+	route: RouteKey;
+}
+
+const { lang, route } = Astro.props;
+const otherLang: Lang = lang === 'es' ? 'en' : 'es';
+const key = route === 'blogPost' ? 'blog' : route;
+const href = routes[otherLang][key] ?? `/${otherLang}/`;
+---
+
+<a
+	href={href}
+	hreflang={otherLang}
+	rel="alternate"
+	class="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-600 transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
+>
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-4 w-4">
+		<path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18M12 3c2.5 2.7 4 6.2 4 9s-1.5 6.3-4 9c-2.5-2.7-4-6.2-4-9s1.5-6.3 4-9Z" />
+	</svg>
+	{languages[otherLang]}
+</a>

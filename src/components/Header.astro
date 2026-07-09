@@ -1,0 +1,55 @@
+---
+import { routes, type Lang, type RouteKey } from '../i18n/ui';
+import { useTranslations } from '../i18n/utils';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+interface Props {
+	lang: Lang;
+	route: RouteKey;
+}
+
+const { lang, route } = Astro.props;
+const t = useTranslations(lang);
+const nav = routes[lang];
+
+const navLink =
+	'text-sm font-medium text-slate-600 transition hover:text-brand-700 [&[aria-current=page]]:text-brand-700 [&[aria-current=page]]:font-semibold';
+---
+
+<header class="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur-md">
+	<div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
+		<a href={nav.home} class="flex items-center gap-2 text-lg font-bold tracking-tight text-slate-900">
+			<span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 text-sm font-black text-white">
+				DS
+			</span>
+			Desarrolla y Sen
+		</a>
+
+		<nav class="hidden items-center gap-7 md:flex" aria-label="Main navigation">
+			<a href={nav.home} class={navLink} aria-current={route === 'home' ? 'page' : undefined}>{t('nav.home')}</a>
+			<a href={nav.services} class={navLink} aria-current={route === 'services' ? 'page' : undefined}>{t('nav.services')}</a>
+			<a href={nav.about} class={navLink} aria-current={route === 'about' ? 'page' : undefined}>{t('nav.about')}</a>
+			<a href={nav.blog} class={navLink} aria-current={route === 'blog' || route === 'blogPost' ? 'page' : undefined}>{t('nav.blog')}</a>
+		</nav>
+
+		<div class="flex items-center gap-3">
+			<a
+				href={nav.contact}
+				class="hidden rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700 sm:inline-flex"
+				aria-current={route === 'contact' ? 'page' : undefined}
+			>
+				{t('nav.contact')}
+			</a>
+			<LanguageSwitcher lang={lang} route={route} />
+		</div>
+	</div>
+
+	<!-- Nav compacta en mobile (sin JS): se muestra bajo el header en pantallas chicas. -->
+	<nav class="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-slate-100 px-6 py-3 md:hidden" aria-label="Mobile navigation">
+		<a href={nav.home} class={navLink} aria-current={route === 'home' ? 'page' : undefined}>{t('nav.home')}</a>
+		<a href={nav.services} class={navLink} aria-current={route === 'services' ? 'page' : undefined}>{t('nav.services')}</a>
+		<a href={nav.about} class={navLink} aria-current={route === 'about' ? 'page' : undefined}>{t('nav.about')}</a>
+		<a href={nav.blog} class={navLink} aria-current={route === 'blog' || route === 'blogPost' ? 'page' : undefined}>{t('nav.blog')}</a>
+		<a href={nav.contact} class={navLink} aria-current={route === 'contact' ? 'page' : undefined}>{t('nav.contact')}</a>
+	</nav>
+</header>

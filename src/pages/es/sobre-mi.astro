@@ -1,0 +1,30 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const pending = [
+	'Historia breve, experiencia y enfoque de trabajo.',
+	'Foto o presentación personal (opcional).',
+	'Valores / forma de trabajar con clientes pyme.',
+];
+---
+
+<Layout
+	lang="es"
+	route="about"
+	title="Sobre mí"
+	description="Conoce quién está detrás de Desarrolla y Sen y cómo trabajo en cada proyecto."
+>
+	<section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+		<h1 class="text-4xl font-extrabold tracking-tight text-slate-900">Sobre mí</h1>
+
+		<div class="mt-10 space-y-4">
+			{
+				pending.map((item) => (
+					<div class="rounded-xl border border-dashed border-amber-300 bg-amber-50 p-5 text-sm text-amber-900">
+						<span class="font-semibold">[PENDIENTE DE REVISIÓN]</span> {item}
+					</div>
+				))
+			}
+		</div>
+	</section>
+</Layout>

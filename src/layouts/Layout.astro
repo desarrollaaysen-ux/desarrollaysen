@@ -1,0 +1,60 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import type { Lang, RouteKey } from '../i18n/ui';
+import '../styles/global.css';
+
+interface Props {
+	lang: Lang;
+	route: RouteKey;
+	title: string;
+	description: string;
+	/** Ruta absoluta a una imagen OG, ej: "/og-image.jpg". Opcional. */
+	image?: string;
+}
+
+const { lang, route, title, description, image } = Astro.props;
+
+const siteName = 'Desarrolla y Sen';
+const fullTitle = `${title} | ${siteName}`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = image ? new URL(image, Astro.site) : undefined;
+const ogLocale = lang === 'es' ? 'es_CL' : 'en_US';
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+
+		<title>{fullTitle}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:locale" content={ogLocale} />
+		{ogImageURL && <meta property="og:image" content={ogImageURL} />}
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content={ogImageURL ? 'summary_large_image' : 'summary'} />
+		<meta name="twitter:title" content={fullTitle} />
+		<meta name="twitter:description" content={description} />
+		{ogImageURL && <meta name="twitter:image" content={ogImageURL} />}
+	</head>
+	<body class="flex min-h-screen flex-col bg-white font-sans text-slate-900 antialiased">
+		<Header lang={lang} route={route} />
+		<main class="flex-1">
+			<slot />
+		</main>
+		<Footer lang={lang} />
+	</body>
+</html>

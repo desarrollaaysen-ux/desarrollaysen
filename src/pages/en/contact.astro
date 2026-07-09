@@ -1,0 +1,40 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const items = [
+	{ label: 'Contact email', icon: 'M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2Z' },
+	{ label: 'WhatsApp / phone', icon: 'M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 0 0 2.25-2.25v-1.372a1.5 1.5 0 0 0-1.14-1.456l-4.05-1.012a1.5 1.5 0 0 0-1.548.594l-.822 1.234a11.25 11.25 0 0 1-5.176-5.176l1.234-.822a1.5 1.5 0 0 0 .594-1.548L8.078 5.19a1.5 1.5 0 0 0-1.456-1.14H5.25A2.25 2.25 0 0 0 3 6.3v.45Z' },
+	{ label: 'Contact form (spam-protected)', icon: 'M9 12h6m-6 4h6M9 8h6M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z' },
+];
+---
+
+<Layout
+	lang="en"
+	route="contact"
+	title="Contact"
+	description="Get in touch to talk about your website project."
+>
+	<section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+		<h1 class="text-4xl font-extrabold tracking-tight text-slate-900">Contact</h1>
+		<p class="mt-4 rounded-xl border border-dashed border-amber-300 bg-amber-50 p-5 text-sm text-amber-900">
+			<span class="font-semibold">[PENDIENTE DE REVISIÓN]</span> Intro contact text.
+		</p>
+
+		<ul class="mt-8 space-y-4">
+			{
+				items.map((item) => (
+					<li class="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+						<span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-5 w-5">
+								<path stroke-linecap="round" stroke-linejoin="round" d={item.icon} />
+							</svg>
+						</span>
+						<span class="text-sm text-slate-700">
+							<span class="font-semibold text-amber-700">[PENDIENTE DE REVISIÓN]</span> {item.label}
+						</span>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</Layout>

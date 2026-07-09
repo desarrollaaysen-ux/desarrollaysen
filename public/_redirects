@@ -1,0 +1,4 @@
+# Redirección de la raíz al idioma por defecto (español).
+# Cloudflare Pages procesa este archivo antes de servir los archivos
+# estáticos, produciendo una redirección HTTP real (no meta-refresh).
+/    /es/    302
