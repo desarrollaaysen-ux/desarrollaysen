@@ -1,0 +1,8 @@
+{
+	"name": "desarrollaysen",
+	"compatibility_date": "2026-07-15",
+	"assets": {
+		"directory": "./dist/",
+		"html_handling": "auto-trailing-slash"
+	}
+}
