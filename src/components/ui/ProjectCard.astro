@@ -1,0 +1,23 @@
+---
+// Tarjeta de portafolio. Mientras no haya proyectos reales, se usa en modo
+// "placeholder": muestra un mockup abstracto y la etiqueta de pendiente,
+// sin inventar clientes ni resultados.
+interface Props {
+	pendingLabel: string;
+}
+
+const { pendingLabel } = Astro.props;
+---
+
+<div class="overflow-hidden rounded-2xl border border-dashed border-slate-300 bg-slate-50">
+	<div class="flex aspect-video items-center justify-center bg-gradient-to-br from-slate-100 to-brand-50">
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" class="h-12 w-12 text-slate-300">
+			<path stroke-linecap="round" stroke-linejoin="round" d="M3 5.25A2.25 2.25 0 0 1 5.25 3h13.5A2.25 2.25 0 0 1 21 5.25v13.5A2.25 2.25 0 0 1 18.75 21H5.25A2.25 2.25 0 0 1 3 18.75V5.25Z" />
+			<path stroke-linecap="round" stroke-linejoin="round" d="m3 16 4.5-4.5a2 2 0 0 1 2.83 0L15 16m-3-3 1.5-1.5a2 2 0 0 1 2.83 0L21 16" />
+		</svg>
+	</div>
+	<div class="p-5">
+		<p class="text-sm font-semibold text-amber-700">[PENDIENTE DE REVISIÓN]</p>
+		<p class="mt-1 text-sm text-slate-500">{pendingLabel}</p>
+	</div>
+</div>

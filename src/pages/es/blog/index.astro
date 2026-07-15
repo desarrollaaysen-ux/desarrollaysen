@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import SectionHeader from '../../../components/ui/SectionHeader.astro';
 
 const posts = (await getCollection('blogEs', ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -13,28 +14,37 @@ const posts = (await getCollection('blogEs', ({ data }) => !data.draft)).sort(
 	title="Blog"
 	description="Artículos sobre desarrollo web, buenas prácticas y seguridad para pymes."
 >
-	<section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
-		<h1 class="text-4xl font-extrabold tracking-tight text-slate-900">Blog</h1>
+	<section class="mx-auto max-w-5xl px-6 py-16 sm:py-20">
+		<SectionHeader eyebrow="Blog" title="Ideas para la presencia digital de tu negocio" align="left" />
 
 		{
 			posts.length === 0 && (
-				<p class="mt-6 rounded-xl border border-dashed border-amber-300 bg-amber-50 p-5 text-sm text-amber-900">
+				<p class="mt-10 rounded-xl border border-dashed border-amber-300 bg-amber-50 p-5 text-sm text-amber-900">
 					<span class="font-semibold">[PENDIENTE DE REVISIÓN]</span> Todavía no hay artículos publicados.
 				</p>
 			)
 		}
 
-		<ul class="mt-10 space-y-6">
+		<ul class="mt-10 grid gap-6 sm:grid-cols-2">
 			{
 				posts.map((post) => (
-					<li class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-brand-300 hover:shadow-md">
-						<a href={`/es/blog/${post.id}/`} class="text-lg font-semibold text-slate-900 hover:text-brand-700">
-							{post.data.title}
+					<li>
+						<a
+							href={`/es/blog/${post.id}/`}
+							class="group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-md"
+						>
+							<time datetime={post.data.pubDate.toISOString()} class="text-xs font-semibold uppercase tracking-wide text-brand-600">
+								{post.data.pubDate.toLocaleDateString('es-CL', { day: 'numeric', month: 'long', year: 'numeric' })}
+							</time>
+							<h2 class="mt-3 text-lg font-bold text-slate-900 group-hover:text-brand-700">{post.data.title}</h2>
+							<p class="mt-2 flex-1 text-sm text-slate-600">{post.data.description}</p>
+							<span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600">
+								Leer más
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4 transition group-hover:translate-x-1">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+								</svg>
+							</span>
 						</a>
-						<p class="mt-2 text-sm text-slate-600">{post.data.description}</p>
-						<time datetime={post.data.pubDate.toISOString()} class="mt-3 block text-xs font-medium text-slate-400">
-							{post.data.pubDate.toLocaleDateString('es-CL')}
-						</time>
 					</li>
 				))
 			}

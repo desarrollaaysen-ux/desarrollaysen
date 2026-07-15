@@ -1,23 +1,82 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { routes } from '../../i18n/ui';
+import SectionHeader from '../../components/ui/SectionHeader.astro';
+import FeatureCard from '../../components/ui/FeatureCard.astro';
+import ServiceCard from '../../components/ui/ServiceCard.astro';
+import PricingCard from '../../components/ui/PricingCard.astro';
+import ProcessStep from '../../components/ui/ProcessStep.astro';
+import ProjectCard from '../../components/ui/ProjectCard.astro';
+import FAQItem from '../../components/ui/FAQItem.astro';
+import CTASection from '../../components/ui/CTASection.astro';
+import { plansEn, maintenanceEn } from '../../data/plans';
 
-const features = [
+const nav = routes.en;
+
+const trust = [
+	{ icon: 'M4 6h16M4 12h16M4 18h10', title: 'Personalized attention', text: "You work directly with me on your project, no middlemen, no outsourcing." },
+	{ icon: 'M9 3h6a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm3 15h.01', title: '100% responsive design', text: 'Your site looks great on mobile, tablet and desktop from day one.' },
+	{ icon: 'M13 3 4 14h6l-1 7 9-11h-6l1-7Z', title: 'Fast load times', text: 'Lightweight, optimized sites: less waiting for your visitors, better experience.' },
+	{ icon: 'M8 10h8M8 14h5M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 0 1-4-.8L3 20l1.2-3.6A7.9 7.9 0 0 1 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8Z', title: 'Support throughout the process', text: 'I explain every stage in plain language, no unnecessary jargon.' },
+	{ icon: 'M4.5 12a7.5 7.5 0 0 1 13-5.13M19.5 12a7.5 7.5 0 0 1-13 5.13M4 4v5h5M20 20v-5h-5', title: 'Easy to maintain', text: 'Your site stays organized and simple to update, with no complex setup to worry about.' },
+	{ icon: 'M12 3 4 6.5v5.6c0 4.9 3.4 9.4 8 10.4 4.6-1 8-5.5 8-10.4V6.5L12 3Z', title: 'Solid technical practices', text: 'HTTPS, security headers and good development practices applied by default on every site.' },
+];
+
+const services = [
 	{
-		icon: 'M12 3 4 6.5v5.6c0 4.9 3.4 9.4 8 10.4 4.6-1 8-5.5 8-10.4V6.5L12 3Z',
-		title: '[PENDIENTE DE REVISIÓN] Security by design',
-		text: '[PENDIENTE DE REVISIÓN] 1-2 lines about security best practices applied by default.',
+		icon: 'M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 4h14',
+		title: 'Basic Plan',
+		text: 'A one-page, responsive site with everything you need to get found.',
+		benefit: 'Online presence in less than a week.',
+		ctaLabel: 'View details',
+		ctaHref: nav.services,
 	},
 	{
-		icon: 'M13 3 4 14h6l-1 7 9-11h-6l1-7Z',
-		title: '[PENDIENTE DE REVISIÓN] Real performance',
-		text: '[PENDIENTE DE REVISIÓN] 1-2 lines about load speed and optimization.',
+		icon: 'M12 3 2 8l10 5 10-5-10-5ZM2 12l10 5 10-5M2 16l10 5 10-5',
+		title: 'Pro Plan',
+		text: 'Up to 5 pages, a contact form and basic SEO to showcase your whole business.',
+		benefit: 'More pages, more visibility, more inquiries.',
+		ctaLabel: 'View details',
+		ctaHref: nav.services,
 	},
 	{
-		icon: 'M4 6h16M4 12h16M4 18h10',
-		title: '[PENDIENTE DE REVISIÓN] Clear communication',
-		text: '[PENDIENTE DE REVISIÓN] 1-2 lines about how you work with clients during the project.',
+		icon: 'M4.5 12a7.5 7.5 0 0 1 13-5.13M19.5 12a7.5 7.5 0 0 1-13 5.13M4 4v5h5M20 20v-5h-5',
+		title: 'Monthly Maintenance',
+		text: 'Hosting, backups and security updates, managed for you.',
+		benefit: 'Your site always up to date, without you having to think about it.',
+		ctaLabel: 'View details',
+		ctaHref: nav.services,
 	},
+];
+
+const process = [
+	{ title: 'Initial conversation', text: "We talk about your business, what you need and what you expect from the site." },
+	{ title: 'Scoping', text: 'We define scope, content and the plan that fits you best.' },
+	{ title: 'Design & development', text: 'I build your site with a modern design and solid technical practices.' },
+	{ title: 'Review', text: 'We go over the result together and adjust anything needed.' },
+	{ title: 'Launch', text: 'Your site goes live, with HTTPS and first-year hosting included.' },
+	{ title: 'Support', text: "I stay available for questions, and if you'd like, we continue with monthly maintenance." },
+];
+
+const benefits = [
+	'Builds trust with anyone who visits your site',
+	'Shows off your services clearly and in an organized way',
+	'Lets you receive inquiries directly',
+	'Improves your professional image against the competition',
+	'Helps people find you on Google',
+	'Makes it easy to get in touch via WhatsApp, email or a form',
+	'Gives you a channel of your own to reach new customers',
+];
+
+const faqs = [
+	{ q: 'How long does a website take?', a: 'It depends on the plan: the Basic Plan is delivered in 5-7 business days, and the Pro Plan in 10-15 business days after we define the content.' },
+	{ q: 'Do I need a domain already?', a: "It's not required upfront. If you already have one we'll use it, and if not, I can guide you through choosing and setting one up." },
+	{ q: 'Does it work well on phones?', a: 'Yes, every site I build is responsive: it adapts to phone, tablet and desktop.' },
+	{ q: 'Can I request changes after delivery?', a: 'Yes. There is a review stage during development, and if you need ongoing changes later, the Monthly Maintenance plan includes up to 2 content changes per month.' },
+	{ q: 'Is hosting included?', a: 'Yes, first-year hosting is included in both plans. After that, it can be handled through the Monthly Maintenance plan.' },
+	{ q: 'How does payment work?', a: '[PENDIENTE DE REVISIÓN] Payment details are agreed directly with you before the project starts.' },
+	{ q: 'What information do I need to provide?', a: 'Mainly your logo (if you have one), text or general ideas of what you want to communicate, photos if available, and your contact details.' },
+	{ q: 'Will my site show up on Google?', a: "The Pro Plan includes basic SEO to help your site be indexable and well structured for search engines. I can't guarantee specific rankings, but every site is built with good SEO practices from the start." },
 ];
 ---
 
@@ -27,56 +86,169 @@ const features = [
 	title="Home"
 	description="Web development for small and medium businesses in Chile. Fast, secure sites built for your business."
 >
+	<!-- Hero -->
 	<section class="relative overflow-hidden">
 		<div class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,var(--color-brand-100),transparent_60%)]"></div>
-		<div class="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-			<span class="inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
-				Web development for small businesses in Chile
-			</span>
-			<h1 class="mt-6 max-w-3xl text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
-				[PENDIENTE DE REVISIÓN] Main site headline
-			</h1>
-			<p class="mt-6 max-w-2xl text-lg text-slate-600">
-				[PENDIENTE DE REVISIÓN] Intro text: who you are, what you offer and who
-				you help.
-			</p>
-			<div class="mt-10 flex flex-wrap gap-4">
-				<a
-					href={routes.en.services}
-					class="rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-brand-600/20 transition hover:bg-brand-700"
-				>
-					View services
-				</a>
-				<a
-					href={routes.en.contact}
-					class="rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-brand-300 hover:text-brand-700"
-				>
-					Get in touch
-				</a>
+		<div class="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 sm:py-28 lg:grid-cols-[1.1fr_0.9fr]">
+			<div class="animate-fade-up">
+				<span class="inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
+					Web development for small businesses in Chile
+				</span>
+				<h1 class="mt-6 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+					A professional website for your business, ready in days
+				</h1>
+				<p class="mt-6 max-w-xl text-lg text-slate-600">
+					Design, development and first-year hosting included. Fast,
+					responsive sites built with good practices, so your business
+					has an online presence without the hassle.
+				</p>
+				<div class="mt-10 flex flex-wrap gap-4">
+					<a href={nav.contact} class="rounded-full bg-brand-600 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-brand-600/20 transition hover:bg-brand-700 sm:text-base">
+						Get a quote
+					</a>
+					<a href={nav.services} class="rounded-full border border-slate-300 px-6 py-3.5 text-sm font-semibold text-slate-700 transition hover:border-brand-300 hover:text-brand-700 sm:text-base">
+						View services
+					</a>
+				</div>
+			</div>
+
+			<!-- Decorative website mockup (no external images) -->
+			<div class="animate-fade-up relative mx-auto w-full max-w-md" style="animation-delay:120ms">
+				<div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-900/10">
+					<div class="flex items-center gap-1.5 border-b border-slate-100 bg-slate-50 px-4 py-3">
+						<span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+						<span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+						<span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+						<span class="ml-3 h-5 flex-1 rounded-full bg-slate-100"></span>
+					</div>
+					<div class="space-y-4 p-6">
+						<div class="h-4 w-2/3 rounded bg-slate-200"></div>
+						<div class="h-3 w-1/2 rounded bg-slate-100"></div>
+						<div class="grid grid-cols-3 gap-3 pt-2">
+							<div class="h-16 rounded-lg bg-brand-100"></div>
+							<div class="h-16 rounded-lg bg-brand-50"></div>
+							<div class="h-16 rounded-lg bg-slate-100"></div>
+						</div>
+						<div class="h-9 w-28 rounded-full bg-brand-600"></div>
+					</div>
+				</div>
+				<div class="absolute -bottom-6 -right-6 -z-10 h-32 w-32 rounded-3xl bg-brand-200/50 blur-2xl"></div>
 			</div>
 		</div>
 	</section>
 
+	<!-- Trust -->
 	<section class="border-t border-slate-100 bg-slate-50">
-		<div class="mx-auto max-w-6xl px-6 py-16">
-			<h2 class="text-2xl font-bold tracking-tight text-slate-900">
-				[PENDIENTE DE REVISIÓN] Why work with me?
-			</h2>
-			<div class="mt-10 grid gap-8 sm:grid-cols-3">
-				{
-					features.map((feature) => (
-						<div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-							<div class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-5 w-5">
-									<path stroke-linecap="round" stroke-linejoin="round" d={feature.icon} />
-								</svg>
-							</div>
-							<h3 class="mt-4 text-base font-semibold text-slate-900">{feature.title}</h3>
-							<p class="mt-2 text-sm text-slate-600">{feature.text}</p>
-						</div>
-					))
-				}
+		<div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+			<SectionHeader
+				eyebrow="Why work with me"
+				title="A clear process, built for real businesses"
+				subtitle="No fine print, no empty promises: here's how I work with every client."
+			/>
+			<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{trust.map((item) => <FeatureCard icon={item.icon} title={item.title} text={item.text} />)}
 			</div>
 		</div>
+	</section>
+
+	<!-- Services -->
+	<section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+		<SectionHeader
+			eyebrow="Services"
+			title="Pick the plan that fits your business"
+			subtitle="From a simple presence to a more complete site, with maintenance so you don't have to worry later."
+		/>
+		<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{services.map((service) => <ServiceCard {...service} />)}
+		</div>
+	</section>
+
+	<!-- Process -->
+	<section class="border-t border-slate-100 bg-slate-50">
+		<div class="mx-auto max-w-4xl px-6 py-16 sm:py-20">
+			<SectionHeader eyebrow="How I work" title="An organized process, start to finish" align="left" />
+			<div class="mt-12">
+				{process.map((step, i) => (
+					<ProcessStep number={i + 1} title={step.title} text={step.text} isLast={i === process.length - 1} />
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Benefits -->
+	<section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+		<SectionHeader
+			eyebrow="Benefits"
+			title="What a good website does for your business"
+			subtitle="More than a nice-looking site: a real tool to capture and serve customers."
+		/>
+		<ul class="mx-auto mt-12 grid max-w-3xl gap-4 sm:grid-cols-2">
+			{benefits.map((benefit) => (
+				<li class="flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 h-5 w-5 shrink-0 text-brand-600">
+						<path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+					</svg>
+					{benefit}
+				</li>
+			))}
+		</ul>
+	</section>
+
+	<!-- Portfolio -->
+	<section class="border-t border-slate-100 bg-slate-50">
+		<div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+			<SectionHeader eyebrow="Projects" title="Work I've done" subtitle="This section will be updated with real projects as they become available." />
+			<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				<ProjectCard pendingLabel="Reserved space for the first published project." />
+				<ProjectCard pendingLabel="Reserved space for the second published project." />
+				<ProjectCard pendingLabel="Reserved space for the third published project." />
+			</div>
+		</div>
+	</section>
+
+	<!-- Pricing -->
+	<section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+		<SectionHeader eyebrow="Plans" title="Clear pricing, no fine print" />
+		<div class="mx-auto mt-12 grid max-w-4xl gap-8 sm:grid-cols-2">
+			{plansEn.map((plan) => (
+				<PricingCard
+					name={plan.name}
+					subtitle={plan.subtitle}
+					forWhom={plan.forWhom}
+					features={plan.features}
+					delivery={plan.delivery}
+					highlight={plan.highlight}
+					highlightLabel="Most popular"
+					ctaLabel="Request this plan"
+					ctaHref={nav.contact}
+				/>
+			))}
+		</div>
+		<p class="mx-auto mt-8 max-w-4xl rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center text-sm text-slate-600">
+			<strong class="text-slate-900">{maintenanceEn.name}:</strong> {maintenanceEn.forWhom}
+			<a href={nav.services} class="ml-1 font-semibold text-brand-600 hover:text-brand-700">View details →</a>
+		</p>
+	</section>
+
+	<!-- FAQ -->
+	<section class="border-t border-slate-100 bg-slate-50">
+		<div class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+			<SectionHeader eyebrow="FAQ" title="Common questions before getting started" />
+			<div class="mt-12 space-y-3">
+				{faqs.map((faq) => <FAQItem question={faq.q} answer={faq.a} />)}
+			</div>
+		</div>
+	</section>
+
+	<!-- Final CTA -->
+	<section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+		<CTASection
+			title="Ready to give your business the presence it deserves?"
+			subtitle="Tell me about your idea and let's talk about the best plan for your business."
+			primaryLabel="Get a quote"
+			primaryHref={nav.contact}
+			secondaryLabel="View plans"
+			secondaryHref={nav.services}
+		/>
 	</section>
 </Layout>

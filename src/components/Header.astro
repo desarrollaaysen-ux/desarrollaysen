@@ -14,6 +14,8 @@ const nav = routes[lang];
 
 const navLink =
 	'text-sm font-medium text-slate-600 transition hover:text-brand-700 [&[aria-current=page]]:text-brand-700 [&[aria-current=page]]:font-semibold';
+
+const isBlog = route === 'blog' || route === 'blogPost';
 ---
 
 <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur-md">
@@ -29,27 +31,68 @@ const navLink =
 			<a href={nav.home} class={navLink} aria-current={route === 'home' ? 'page' : undefined}>{t('nav.home')}</a>
 			<a href={nav.services} class={navLink} aria-current={route === 'services' ? 'page' : undefined}>{t('nav.services')}</a>
 			<a href={nav.about} class={navLink} aria-current={route === 'about' ? 'page' : undefined}>{t('nav.about')}</a>
-			<a href={nav.blog} class={navLink} aria-current={route === 'blog' || route === 'blogPost' ? 'page' : undefined}>{t('nav.blog')}</a>
+			<a href={nav.blog} class={navLink} aria-current={isBlog ? 'page' : undefined}>{t('nav.blog')}</a>
 		</nav>
 
-		<div class="flex items-center gap-3">
+		<div class="hidden items-center gap-3 md:flex">
 			<a
 				href={nav.contact}
-				class="hidden rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700 sm:inline-flex"
+				class="inline-flex rounded-full bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700"
 				aria-current={route === 'contact' ? 'page' : undefined}
 			>
 				{t('nav.contact')}
 			</a>
 			<LanguageSwitcher lang={lang} route={route} />
 		</div>
+
+		<button
+			type="button"
+			id="menu-toggle"
+			class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 md:hidden"
+			aria-expanded="false"
+			aria-controls="mobile-nav"
+			aria-label={t('nav.menu')}
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-5 w-5" id="icon-open">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+			</svg>
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="hidden h-5 w-5" id="icon-close">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+			</svg>
+		</button>
 	</div>
 
-	<!-- Nav compacta en mobile (sin JS): se muestra bajo el header en pantallas chicas. -->
-	<nav class="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-slate-100 px-6 py-3 md:hidden" aria-label="Mobile navigation">
-		<a href={nav.home} class={navLink} aria-current={route === 'home' ? 'page' : undefined}>{t('nav.home')}</a>
-		<a href={nav.services} class={navLink} aria-current={route === 'services' ? 'page' : undefined}>{t('nav.services')}</a>
-		<a href={nav.about} class={navLink} aria-current={route === 'about' ? 'page' : undefined}>{t('nav.about')}</a>
-		<a href={nav.blog} class={navLink} aria-current={route === 'blog' || route === 'blogPost' ? 'page' : undefined}>{t('nav.blog')}</a>
-		<a href={nav.contact} class={navLink} aria-current={route === 'contact' ? 'page' : undefined}>{t('nav.contact')}</a>
+	<nav
+		id="mobile-nav"
+		class="hidden flex-col gap-1 border-t border-slate-100 px-6 py-4 md:hidden"
+		aria-label="Mobile navigation"
+	>
+		<a href={nav.home} class="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50" aria-current={route === 'home' ? 'page' : undefined}>{t('nav.home')}</a>
+		<a href={nav.services} class="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50" aria-current={route === 'services' ? 'page' : undefined}>{t('nav.services')}</a>
+		<a href={nav.about} class="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50" aria-current={route === 'about' ? 'page' : undefined}>{t('nav.about')}</a>
+		<a href={nav.blog} class="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50" aria-current={isBlog ? 'page' : undefined}>{t('nav.blog')}</a>
+		<a href={nav.contact} class="mt-2 rounded-full bg-brand-600 px-3 py-2.5 text-center text-sm font-semibold text-white" aria-current={route === 'contact' ? 'page' : undefined}>{t('nav.contact')}</a>
+		<div class="mt-3 border-t border-slate-100 pt-3">
+			<LanguageSwitcher lang={lang} route={route} />
+		</div>
 	</nav>
 </header>
+
+<script>
+	// Menú hamburguesa: JS mínimo, sin dependencias, progressive enhancement
+	// (si el script no carga, la nav de escritorio sigue funcionando y en
+	// mobile el visitante puede navegar igual entrando a cada página).
+	const toggle = document.getElementById('menu-toggle');
+	const mobileNav = document.getElementById('mobile-nav');
+	const iconOpen = document.getElementById('icon-open');
+	const iconClose = document.getElementById('icon-close');
+
+	toggle?.addEventListener('click', () => {
+		const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+		toggle.setAttribute('aria-expanded', String(!isOpen));
+		mobileNav?.classList.toggle('hidden', isOpen);
+		mobileNav?.classList.toggle('flex', !isOpen);
+		iconOpen?.classList.toggle('hidden', !isOpen);
+		iconClose?.classList.toggle('hidden', isOpen);
+	});
+</script>

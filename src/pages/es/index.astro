@@ -1,23 +1,82 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { routes } from '../../i18n/ui';
+import SectionHeader from '../../components/ui/SectionHeader.astro';
+import FeatureCard from '../../components/ui/FeatureCard.astro';
+import ServiceCard from '../../components/ui/ServiceCard.astro';
+import PricingCard from '../../components/ui/PricingCard.astro';
+import ProcessStep from '../../components/ui/ProcessStep.astro';
+import ProjectCard from '../../components/ui/ProjectCard.astro';
+import FAQItem from '../../components/ui/FAQItem.astro';
+import CTASection from '../../components/ui/CTASection.astro';
+import { plansEs, maintenanceEs } from '../../data/plans';
 
-const features = [
+const nav = routes.es;
+
+const trust = [
+	{ icon: 'M4 6h16M4 12h16M4 18h10', title: 'Atención personalizada', text: 'Trabajo directo conmigo en cada proyecto, sin intermediarios ni tercerizar tu sitio.' },
+	{ icon: 'M9 3h6a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm3 15h.01', title: 'Diseño 100% responsive', text: 'Tu sitio se ve bien en celular, tablet y computador desde el primer día.' },
+	{ icon: 'M13 3 4 14h6l-1 7 9-11h-6l1-7Z', title: 'Carga rápida', text: 'Sitios livianos y optimizados: menos espera para tus visitas, mejor experiencia.' },
+	{ icon: 'M8 10h8M8 14h5M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 0 1-4-.8L3 20l1.2-3.6A7.9 7.9 0 0 1 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8Z', title: 'Acompañamiento en todo el proceso', text: 'Te explico cada etapa en lenguaje simple, sin tecnicismos innecesarios.' },
+	{ icon: 'M4.5 12a7.5 7.5 0 0 1 13-5.13M19.5 12a7.5 7.5 0 0 1-13 5.13M4 4v5h5M20 20v-5h-5', title: 'Fácil de mantener', text: 'Tu sitio queda ordenado y simple de actualizar, sin depender de configuraciones complejas.' },
+	{ icon: 'M12 3 4 6.5v5.6c0 4.9 3.4 9.4 8 10.4 4.6-1 8-5.5 8-10.4V6.5L12 3Z', title: 'Buenas prácticas técnicas', text: 'HTTPS, headers de seguridad y buenas prácticas de desarrollo aplicadas por defecto en cada sitio.' },
+];
+
+const services = [
 	{
-		icon: 'M12 3 4 6.5v5.6c0 4.9 3.4 9.4 8 10.4 4.6-1 8-5.5 8-10.4V6.5L12 3Z',
-		title: '[PENDIENTE DE REVISIÓN] Seguridad desde el diseño',
-		text: '[PENDIENTE DE REVISIÓN] 1-2 líneas sobre buenas prácticas de seguridad aplicadas por defecto.',
+		icon: 'M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 4h14',
+		title: 'Plan Básico',
+		text: 'Un sitio de una página, responsive, con lo esencial para que te encuentren.',
+		benefit: 'Presencia online en menos de una semana.',
+		ctaLabel: 'Ver detalles',
+		ctaHref: nav.services,
 	},
 	{
-		icon: 'M13 3 4 14h6l-1 7 9-11h-6l1-7Z',
-		title: '[PENDIENTE DE REVISIÓN] Rendimiento real',
-		text: '[PENDIENTE DE REVISIÓN] 1-2 líneas sobre velocidad de carga y optimización.',
+		icon: 'M12 3 2 8l10 5 10-5-10-5ZM2 12l10 5 10-5M2 16l10 5 10-5',
+		title: 'Plan Pro',
+		text: 'Hasta 5 páginas, formulario de contacto y SEO básico para mostrar todo tu negocio.',
+		benefit: 'Más páginas, más visibilidad, más consultas.',
+		ctaLabel: 'Ver detalles',
+		ctaHref: nav.services,
 	},
 	{
-		icon: 'M4 6h16M4 12h16M4 18h10',
-		title: '[PENDIENTE DE REVISIÓN] Comunicación clara',
-		text: '[PENDIENTE DE REVISIÓN] 1-2 líneas sobre cómo trabajas con el cliente durante el proyecto.',
+		icon: 'M4.5 12a7.5 7.5 0 0 1 13-5.13M19.5 12a7.5 7.5 0 0 1-13 5.13M4 4v5h5M20 20v-5h-5',
+		title: 'Mantención Mensual',
+		text: 'Hosting, backups y actualizaciones de seguridad administradas por mí.',
+		benefit: 'Tu sitio siempre al día, sin que tengas que pensar en eso.',
+		ctaLabel: 'Ver detalles',
+		ctaHref: nav.services,
 	},
+];
+
+const process = [
+	{ title: 'Conversación inicial', text: 'Conversamos sobre tu negocio, qué necesitas y qué esperas del sitio.' },
+	{ title: 'Definición de necesidades', text: 'Definimos alcance, contenidos y el plan que mejor se ajusta a ti.' },
+	{ title: 'Diseño y desarrollo', text: 'Construyo tu sitio con un diseño moderno y buenas prácticas técnicas.' },
+	{ title: 'Revisión', text: 'Revisamos juntos el resultado y ajustamos lo que sea necesario.' },
+	{ title: 'Publicación', text: 'Tu sitio queda publicado, con HTTPS y hosting del primer año incluido.' },
+	{ title: 'Soporte', text: 'Quedo disponible para dudas y, si quieres, seguimos con la mantención mensual.' },
+];
+
+const benefits = [
+	'Genera confianza en quien visita tu sitio',
+	'Muestra tus servicios de forma clara y ordenada',
+	'Te permite recibir consultas directamente',
+	'Mejora tu imagen profesional frente a la competencia',
+	'Ayuda a que te encuentren en Google',
+	'Facilita el contacto por WhatsApp, email o formulario',
+	'Te da un canal propio para captar nuevos clientes',
+];
+
+const faqs = [
+	{ q: '¿Cuánto tarda una página web?', a: 'Depende del plan: el Plan Básico se entrega en 5-7 días hábiles y el Plan Pro en 10-15 días hábiles desde que definimos los contenidos.' },
+	{ q: '¿Necesito tener dominio?', a: 'No es obligatorio tenerlo de antemano. Si ya tienes uno lo usamos, y si no, te puedo orientar para elegir y configurar uno.' },
+	{ q: '¿La página funciona bien en celulares?', a: 'Sí, todos los sitios que desarrollo son responsive: se adaptan a celular, tablet y computador.' },
+	{ q: '¿Puedo solicitar cambios después de la entrega?', a: 'Sí. Durante el desarrollo hay una etapa de revisión, y si más adelante necesitas cambios periódicos, el Plan de Mantención Mensual incluye hasta 2 cambios de contenido al mes.' },
+	{ q: '¿Incluye hosting?', a: 'Sí, el primer año de hosting está incluido en ambos planes. Después, se puede coordinar a través del Plan de Mantención Mensual.' },
+	{ q: '¿Cómo se realiza el pago?', a: '[PENDIENTE DE REVISIÓN] La modalidad de pago se define directamente contigo antes de comenzar el proyecto.' },
+	{ q: '¿Qué información debo entregar?', a: 'Principalmente tu logo (si tienes), textos o ideas generales de lo que quieres comunicar, fotos si las tienes, y tus datos de contacto.' },
+	{ q: '¿Mi página va a aparecer en Google?', a: 'El Plan Pro incluye SEO básico para ayudar a que tu sitio sea indexable y esté bien estructurado para buscadores. No es posible garantizar posiciones específicas en los resultados, pero se construye con buenas prácticas de SEO desde el inicio.' },
 ];
 ---
 
@@ -27,56 +86,169 @@ const features = [
 	title="Inicio"
 	description="Desarrollo de sitios web para pequeñas y medianas empresas en Chile. Sitios rápidos, seguros y pensados para tu negocio."
 >
+	<!-- Hero -->
 	<section class="relative overflow-hidden">
 		<div class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,var(--color-brand-100),transparent_60%)]"></div>
-		<div class="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-			<span class="inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
-				Desarrollo web para pymes en Chile
-			</span>
-			<h1 class="mt-6 max-w-3xl text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
-				[PENDIENTE DE REVISIÓN] Título principal del sitio
-			</h1>
-			<p class="mt-6 max-w-2xl text-lg text-slate-600">
-				[PENDIENTE DE REVISIÓN] Texto de introducción: quién eres, qué ofreces y a
-				quién ayudas.
-			</p>
-			<div class="mt-10 flex flex-wrap gap-4">
-				<a
-					href={routes.es.services}
-					class="rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-brand-600/20 transition hover:bg-brand-700"
-				>
-					Ver servicios
-				</a>
-				<a
-					href={routes.es.contact}
-					class="rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-brand-300 hover:text-brand-700"
-				>
-					Contactar
-				</a>
+		<div class="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 sm:py-28 lg:grid-cols-[1.1fr_0.9fr]">
+			<div class="animate-fade-up">
+				<span class="inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
+					Desarrollo web para pymes en Chile
+				</span>
+				<h1 class="mt-6 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
+					Una página web profesional para tu negocio, lista en días
+				</h1>
+				<p class="mt-6 max-w-xl text-lg text-slate-600">
+					Diseño, desarrollo y hosting del primer año incluido. Sitios rápidos,
+					responsive y construidos con buenas prácticas, para que tu pyme
+					tenga presencia online sin complicaciones.
+				</p>
+				<div class="mt-10 flex flex-wrap gap-4">
+					<a href={nav.contact} class="rounded-full bg-brand-600 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-brand-600/20 transition hover:bg-brand-700 sm:text-base">
+						Solicitar cotización
+					</a>
+					<a href={nav.services} class="rounded-full border border-slate-300 px-6 py-3.5 text-sm font-semibold text-slate-700 transition hover:border-brand-300 hover:text-brand-700 sm:text-base">
+						Ver servicios
+					</a>
+				</div>
+			</div>
+
+			<!-- Mockup decorativo de un sitio web (sin imágenes externas) -->
+			<div class="animate-fade-up relative mx-auto w-full max-w-md" style="animation-delay:120ms">
+				<div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-900/10">
+					<div class="flex items-center gap-1.5 border-b border-slate-100 bg-slate-50 px-4 py-3">
+						<span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+						<span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+						<span class="h-2.5 w-2.5 rounded-full bg-slate-300"></span>
+						<span class="ml-3 h-5 flex-1 rounded-full bg-slate-100"></span>
+					</div>
+					<div class="space-y-4 p-6">
+						<div class="h-4 w-2/3 rounded bg-slate-200"></div>
+						<div class="h-3 w-1/2 rounded bg-slate-100"></div>
+						<div class="grid grid-cols-3 gap-3 pt-2">
+							<div class="h-16 rounded-lg bg-brand-100"></div>
+							<div class="h-16 rounded-lg bg-brand-50"></div>
+							<div class="h-16 rounded-lg bg-slate-100"></div>
+						</div>
+						<div class="h-9 w-28 rounded-full bg-brand-600"></div>
+					</div>
+				</div>
+				<div class="absolute -bottom-6 -right-6 -z-10 h-32 w-32 rounded-3xl bg-brand-200/50 blur-2xl"></div>
 			</div>
 		</div>
 	</section>
 
+	<!-- Confianza -->
 	<section class="border-t border-slate-100 bg-slate-50">
-		<div class="mx-auto max-w-6xl px-6 py-16">
-			<h2 class="text-2xl font-bold tracking-tight text-slate-900">
-				[PENDIENTE DE REVISIÓN] ¿Por qué trabajar conmigo?
-			</h2>
-			<div class="mt-10 grid gap-8 sm:grid-cols-3">
-				{
-					features.map((feature) => (
-						<div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-							<div class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-5 w-5">
-									<path stroke-linecap="round" stroke-linejoin="round" d={feature.icon} />
-								</svg>
-							</div>
-							<h3 class="mt-4 text-base font-semibold text-slate-900">{feature.title}</h3>
-							<p class="mt-2 text-sm text-slate-600">{feature.text}</p>
-						</div>
-					))
-				}
+		<div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+			<SectionHeader
+				eyebrow="Por qué trabajar conmigo"
+				title="Un proceso claro, pensado para negocios reales"
+				subtitle="Sin letra chica ni promesas vacías: así es como trabajo con cada cliente."
+			/>
+			<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{trust.map((item) => <FeatureCard icon={item.icon} title={item.title} text={item.text} />)}
 			</div>
 		</div>
+	</section>
+
+	<!-- Servicios -->
+	<section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+		<SectionHeader
+			eyebrow="Servicios"
+			title="Elige el plan que se ajusta a tu negocio"
+			subtitle="Desde una presencia simple hasta un sitio más completo, con mantención para no preocuparte después."
+		/>
+		<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+			{services.map((service) => <ServiceCard {...service} />)}
+		</div>
+	</section>
+
+	<!-- Proceso -->
+	<section class="border-t border-slate-100 bg-slate-50">
+		<div class="mx-auto max-w-4xl px-6 py-16 sm:py-20">
+			<SectionHeader eyebrow="Cómo trabajamos" title="Un proceso ordenado, de principio a fin" align="left" />
+			<div class="mt-12">
+				{process.map((step, i) => (
+					<ProcessStep number={i + 1} title={step.title} text={step.text} isLast={i === process.length - 1} />
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Beneficios -->
+	<section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+		<SectionHeader
+			eyebrow="Beneficios"
+			title="Lo que una buena página web hace por tu negocio"
+			subtitle="Más que un sitio bonito: una herramienta real para captar y atender clientes."
+		/>
+		<ul class="mx-auto mt-12 grid max-w-3xl gap-4 sm:grid-cols-2">
+			{benefits.map((benefit) => (
+				<li class="flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-700">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 h-5 w-5 shrink-0 text-brand-600">
+						<path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+					</svg>
+					{benefit}
+				</li>
+			))}
+		</ul>
+	</section>
+
+	<!-- Portafolio -->
+	<section class="border-t border-slate-100 bg-slate-50">
+		<div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+			<SectionHeader eyebrow="Proyectos" title="Trabajos realizados" subtitle="Esta sección se irá actualizando con proyectos reales a medida que estén disponibles." />
+			<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				<ProjectCard pendingLabel="Espacio reservado para el primer proyecto publicado." />
+				<ProjectCard pendingLabel="Espacio reservado para el segundo proyecto publicado." />
+				<ProjectCard pendingLabel="Espacio reservado para el tercer proyecto publicado." />
+			</div>
+		</div>
+	</section>
+
+	<!-- Planes destacados -->
+	<section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+		<SectionHeader eyebrow="Planes" title="Precios claros, sin letra chica" />
+		<div class="mx-auto mt-12 grid max-w-4xl gap-8 sm:grid-cols-2">
+			{plansEs.map((plan) => (
+				<PricingCard
+					name={plan.name}
+					subtitle={plan.subtitle}
+					forWhom={plan.forWhom}
+					features={plan.features}
+					delivery={plan.delivery}
+					highlight={plan.highlight}
+					highlightLabel="Más elegido"
+					ctaLabel="Solicitar este plan"
+					ctaHref={nav.contact}
+				/>
+			))}
+		</div>
+		<p class="mx-auto mt-8 max-w-4xl rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center text-sm text-slate-600">
+			<strong class="text-slate-900">{maintenanceEs.name}:</strong> {maintenanceEs.forWhom}
+			<a href={nav.services} class="ml-1 font-semibold text-brand-600 hover:text-brand-700">Ver detalles →</a>
+		</p>
+	</section>
+
+	<!-- FAQ -->
+	<section class="border-t border-slate-100 bg-slate-50">
+		<div class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+			<SectionHeader eyebrow="Preguntas frecuentes" title="Dudas comunes antes de partir" />
+			<div class="mt-12 space-y-3">
+				{faqs.map((faq) => <FAQItem question={faq.q} answer={faq.a} />)}
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA final -->
+	<section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+		<CTASection
+			title="¿Listo para darle a tu negocio la presencia que merece?"
+			subtitle="Cuéntame tu idea y conversemos sobre el mejor plan para tu negocio."
+			primaryLabel="Solicitar cotización"
+			primaryHref={nav.contact}
+			secondaryLabel="Ver planes"
+			secondaryHref={nav.services}
+		/>
 	</section>
 </Layout>

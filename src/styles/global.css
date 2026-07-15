@@ -16,6 +16,38 @@
 	--color-brand-700: #4338ca;
 	--color-brand-800: #3730a3;
 	--color-brand-900: #312e81;
+
+	/* Color secundario de acento, para badges/CTA puntuales sin perder
+	   seriedad (usado con moderación). */
+	--color-accent-400: #2dd4bf;
+	--color-accent-500: #14b8a6;
+	--color-accent-600: #0d9488;
+
+	--animate-fade-up: fade-up 0.6s ease-out both;
+	--animate-fade-in: fade-in 0.5s ease-out both;
+}
+
+/* Los keyframes van fuera de @theme (que solo acepta variables); Tailwind
+   v4 los conecta igual con las utilidades animate-fade-up / animate-fade-in
+   registradas arriba. */
+@keyframes fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 html {
@@ -25,6 +57,35 @@ html {
 body {
 	background-color: #ffffff;
 	color: #0f172a;
+}
+
+/* Accesibilidad: foco visible consistente en toda la navegación por teclado. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+	outline: 2px solid var(--color-brand-600);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+/* Respeta la preferencia del usuario de reducir movimiento: desactiva
+   animaciones y scroll suave para quienes lo necesiten. */
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
 }
 
 /* Estilos para el contenido markdown del blog (Content Collections).
@@ -88,4 +149,13 @@ body {
 	padding: 0.15em 0.4em;
 	border-radius: 0.35em;
 	font-size: 0.9em;
+}
+
+/* Acordeón de FAQ (FAQItem.astro): flecha que rota al abrir <details>. */
+.faq-item[open] > summary .faq-item__chevron {
+	transform: rotate(180deg);
+}
+
+.faq-item summary::-webkit-details-marker {
+	display: none;
 }

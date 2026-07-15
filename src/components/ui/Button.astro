@@ -1,0 +1,33 @@
+---
+interface Props {
+	href?: string;
+	variant?: 'primary' | 'secondary' | 'ghost';
+	size?: 'md' | 'lg';
+	type?: 'button' | 'submit';
+	class?: string;
+}
+
+const { href, variant = 'primary', size = 'lg', type = 'button', class: extraClass = '' } = Astro.props;
+
+const base =
+	'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-2';
+
+const sizes = {
+	md: 'px-5 py-2.5 text-sm',
+	lg: 'px-6 py-3.5 text-sm sm:text-base',
+};
+
+const variants = {
+	primary: 'bg-brand-600 text-white shadow-md shadow-brand-600/20 hover:bg-brand-700 active:bg-brand-800',
+	secondary:
+		'border border-slate-300 text-slate-700 hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700',
+	ghost: 'text-brand-700 hover:bg-brand-50',
+};
+
+const classes = [base, sizes[size], variants[variant], extraClass].join(' ');
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag class={classes} href={href} type={!href ? type : undefined}>
+	<slot />
+</Tag>

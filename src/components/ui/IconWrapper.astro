@@ -1,0 +1,31 @@
+---
+interface Props {
+	path: string;
+	variant?: 'brand' | 'accent' | 'dark';
+	size?: 'md' | 'lg';
+}
+
+const { path, variant = 'brand', size = 'md' } = Astro.props;
+
+const variants = {
+	brand: 'bg-brand-50 text-brand-600',
+	accent: 'bg-accent-500/10 text-accent-600',
+	dark: 'bg-slate-800 text-white',
+};
+
+const sizes = {
+	md: 'h-11 w-11',
+	lg: 'h-14 w-14',
+};
+
+const iconSizes = {
+	md: 'h-5 w-5',
+	lg: 'h-6 w-6',
+};
+---
+
+<div class={`flex shrink-0 items-center justify-center rounded-xl ${sizes[size]} ${variants[variant]}`}>
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class={iconSizes[size]}>
+		<path stroke-linecap="round" stroke-linejoin="round" d={path} />
+	</svg>
+</div>

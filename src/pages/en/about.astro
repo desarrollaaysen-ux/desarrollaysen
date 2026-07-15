@@ -1,10 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { routes } from '../../i18n/ui';
+import CTASection from '../../components/ui/CTASection.astro';
 
-const pending = [
-	'Short background, experience and way of working.',
-	'Photo or personal introduction (optional).',
-	'Values / how I work with small-business clients.',
+const nav = routes.en;
+
+const values = [
+	{ icon: 'M8 10h8M8 14h5M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 0 1-4-.8L3 20l1.2-3.6A7.9 7.9 0 0 1 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8Z', title: 'Close, direct communication', text: 'I talk with you in plain language, no unnecessary jargon, at every stage of the project.' },
+	{ icon: 'm4.5 12.75 6 6 9-13.5', title: 'Responsibility', text: "I meet the deadlines we agree on and keep you updated on progress." },
+	{ icon: 'M12 3 4 6.5v5.6c0 4.9 3.4 9.4 8 10.4 4.6-1 8-5.5 8-10.4V6.5L12 3Z', title: 'Solid technical practices', text: 'I apply good development and security practices on every site, as part of the quality standard, not as a separate service.' },
 ];
 ---
 
@@ -14,17 +18,65 @@ const pending = [
 	title="About"
 	description="Learn who's behind Desarrolla y Sen and how I work on every project."
 >
-	<section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
-		<h1 class="text-4xl font-extrabold tracking-tight text-slate-900">About</h1>
+	<section class="mx-auto max-w-4xl px-6 py-16 sm:py-20">
+		<span class="inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
+			About
+		</span>
+		<h1 class="mt-6 text-4xl font-extrabold tracking-tight text-slate-900">
+			[PENDIENTE DE REVISIÓN] Name / short introduction
+		</h1>
 
-		<div class="mt-10 space-y-4">
-			{
-				pending.map((item) => (
-					<div class="rounded-xl border border-dashed border-amber-300 bg-amber-50 p-5 text-sm text-amber-900">
-						<span class="font-semibold">[PENDIENTE DE REVISIÓN]</span> {item}
-					</div>
-				))
-			}
+		<div class="mt-8 grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:items-start">
+			<div class="aspect-square w-full max-w-xs rounded-2xl border border-dashed border-amber-300 bg-amber-50 flex items-center justify-center text-center p-6">
+				<p class="text-sm text-amber-800">
+					<span class="block font-semibold">[PENDIENTE DE REVISIÓN]</span>
+					Profile photo (optional) — 800×800px recommended
+				</p>
+			</div>
+
+			<div class="space-y-4 text-slate-600">
+				<p class="rounded-xl border border-dashed border-amber-300 bg-amber-50 p-5 text-sm text-amber-900">
+					<span class="font-semibold">[PENDIENTE DE REVISIÓN]</span> Short
+					background: who you are, how you got into building websites, and
+					what motivates you to work with small businesses and entrepreneurs
+					in Chile.
+				</p>
+				<p class="rounded-xl border border-dashed border-amber-300 bg-amber-50 p-5 text-sm text-amber-900">
+					<span class="font-semibold">[PENDIENTE DE REVISIÓN]</span> Relevant
+					technical experience. Besides web development, I have a background
+					in cybersecurity, which I apply as a quality bonus on every site
+					(good practices, security headers, HTTPS), not as the focus of the
+					service.
+				</p>
+			</div>
 		</div>
+
+		<div class="mt-16">
+			<h2 class="text-2xl font-bold tracking-tight text-slate-900">How I work</h2>
+			<div class="mt-8 grid gap-6 sm:grid-cols-3">
+				{values.map((value) => (
+					<div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+						<div class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-5 w-5">
+								<path stroke-linecap="round" stroke-linejoin="round" d={value.icon} />
+							</svg>
+						</div>
+						<h3 class="mt-4 text-base font-semibold text-slate-900">{value.title}</h3>
+						<p class="mt-2 text-sm text-slate-600">{value.text}</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="mx-auto max-w-6xl px-6 pb-16 sm:pb-20">
+		<CTASection
+			title="Let's talk about your project"
+			subtitle="Tell me where your business is at and what you'd like your website to achieve."
+			primaryLabel="Get in touch"
+			primaryHref={nav.contact}
+			secondaryLabel="View services"
+			secondaryHref={nav.services}
+		/>
 	</section>
 </Layout>
