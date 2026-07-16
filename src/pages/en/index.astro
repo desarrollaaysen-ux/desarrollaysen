@@ -198,27 +198,29 @@ const faqs = [
 	<!-- Portfolio: hidden until real, reviewed projects are available to publish. -->
 
 	<!-- Pricing -->
-	<section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-		<SectionHeader eyebrow="Plans" title="Clear pricing, no fine print" />
-		<div class="mx-auto mt-12 grid max-w-4xl gap-8 sm:grid-cols-2">
-			{plansEn.map((plan) => (
-				<PricingCard
-					name={plan.name}
-					subtitle={plan.subtitle}
-					forWhom={plan.forWhom}
-					features={plan.features}
-					delivery={plan.delivery}
-					highlight={plan.highlight}
-					highlightLabel="Most popular"
-					ctaLabel="Request this plan"
-					ctaHref={nav.contact}
-				/>
-			))}
+	<section class="border-t border-slate-100">
+		<div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+			<SectionHeader eyebrow="Plans" title="Clear pricing, no fine print" />
+			<div class="mx-auto mt-12 grid max-w-4xl gap-8 sm:grid-cols-2">
+				{plansEn.map((plan) => (
+					<PricingCard
+						name={plan.name}
+						subtitle={plan.subtitle}
+						forWhom={plan.forWhom}
+						features={plan.features}
+						delivery={plan.delivery}
+						highlight={plan.highlight}
+						highlightLabel="Most popular"
+						ctaLabel="Request this plan"
+						ctaHref={nav.contact}
+					/>
+				))}
+			</div>
+			<p class="mx-auto mt-8 max-w-4xl rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center text-sm text-slate-600">
+				<strong class="text-slate-900">{maintenanceEn.name}:</strong> {maintenanceEn.forWhom}
+				<a href={nav.services} class="ml-1 font-semibold text-brand-600 hover:text-brand-700">View details →</a>
+			</p>
 		</div>
-		<p class="mx-auto mt-8 max-w-4xl rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center text-sm text-slate-600">
-			<strong class="text-slate-900">{maintenanceEn.name}:</strong> {maintenanceEn.forWhom}
-			<a href={nav.services} class="ml-1 font-semibold text-brand-600 hover:text-brand-700">View details →</a>
-		</p>
 	</section>
 
 	<!-- FAQ -->
