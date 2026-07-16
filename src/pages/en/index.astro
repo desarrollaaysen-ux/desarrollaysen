@@ -14,12 +14,12 @@ import { plansEn, maintenanceEn } from '../../data/plans';
 const nav = routes.en;
 
 const trust = [
-	{ icon: 'M4 6h16M4 12h16M4 18h10', title: 'Personalized attention', text: "You work directly with me on your project, no middlemen, no outsourcing." },
+	{ icon: 'M4 6h16M4 12h16M4 18h10', title: 'Close support', text: 'We work directly with you on your project, no middlemen.' },
 	{ icon: 'M9 3h6a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm3 15h.01', title: '100% responsive design', text: 'Your site looks great on mobile, tablet and desktop from day one.' },
 	{ icon: 'M13 3 4 14h6l-1 7 9-11h-6l1-7Z', title: 'Fast load times', text: 'Lightweight, optimized sites: less waiting for your visitors, better experience.' },
-	{ icon: 'M8 10h8M8 14h5M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 0 1-4-.8L3 20l1.2-3.6A7.9 7.9 0 0 1 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8Z', title: 'Support throughout the process', text: 'I explain every stage in plain language, no unnecessary jargon.' },
+	{ icon: 'M8 10h8M8 14h5M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 0 1-4-.8L3 20l1.2-3.6A7.9 7.9 0 0 1 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8Z', title: 'Support throughout the process', text: 'We explain every stage in plain language, no unnecessary jargon.' },
 	{ icon: 'M4.5 12a7.5 7.5 0 0 1 13-5.13M19.5 12a7.5 7.5 0 0 1-13 5.13M4 4v5h5M20 20v-5h-5', title: 'Easy to maintain', text: 'Your site stays organized and simple to update, with no complex setup to worry about.' },
-	{ icon: 'M12 3 4 6.5v5.6c0 4.9 3.4 9.4 8 10.4 4.6-1 8-5.5 8-10.4V6.5L12 3Z', title: 'Solid technical practices', text: 'HTTPS, security headers and good development practices applied by default on every site.' },
+	{ icon: 'M12 3 4 6.5v5.6c0 4.9 3.4 9.4 8 10.4 4.6-1 8-5.5 8-10.4V6.5L12 3Z', title: 'Solid technical practices', text: 'Projects are built considering good security, performance and privacy practices.' },
 ];
 
 const services = [
@@ -42,7 +42,7 @@ const services = [
 	{
 		icon: 'M4.5 12a7.5 7.5 0 0 1 13-5.13M19.5 12a7.5 7.5 0 0 1-13 5.13M4 4v5h5M20 20v-5h-5',
 		title: 'Monthly Maintenance',
-		text: 'Hosting, backups and security updates, managed for you.',
+		text: 'Hosting, backups and security updates, managed for you by our team.',
 		benefit: 'Your site always up to date, without you having to think about it.',
 		ctaLabel: 'View details',
 		ctaHref: nav.services,
@@ -52,10 +52,10 @@ const services = [
 const process = [
 	{ title: 'Initial conversation', text: "We talk about your business, what you need and what you expect from the site." },
 	{ title: 'Scoping', text: 'We define scope, content and the plan that fits you best.' },
-	{ title: 'Design & development', text: 'I build your site with a modern design and solid technical practices.' },
+	{ title: 'Design & development', text: 'We build your site with a modern design and solid technical practices.' },
 	{ title: 'Review', text: 'We go over the result together and adjust anything needed.' },
 	{ title: 'Launch', text: 'Your site goes live, with HTTPS and first-year hosting included.' },
-	{ title: 'Support', text: "I stay available for questions, and if you'd like, we continue with monthly maintenance." },
+	{ title: 'Support', text: "We stay available for questions, and if you'd like, we continue with monthly maintenance." },
 ];
 
 const benefits = [
@@ -69,14 +69,16 @@ const benefits = [
 ];
 
 const faqs = [
-	{ q: 'How long does a website take?', a: 'It depends on the plan: the Basic Plan is delivered in 5-7 business days, and the Pro Plan in 10-15 business days after we define the content.' },
-	{ q: 'Do I need a domain already?', a: "It's not required upfront. If you already have one we'll use it, and if not, I can guide you through choosing and setting one up." },
-	{ q: 'Does it work well on phones?', a: 'Yes, every site I build is responsive: it adapts to phone, tablet and desktop.' },
-	{ q: 'Can I request changes after delivery?', a: 'Yes. There is a review stage during development, and if you need ongoing changes later, the Monthly Maintenance plan includes up to 2 content changes per month.' },
-	{ q: 'Is hosting included?', a: 'Yes, first-year hosting is included in both plans. After that, it can be handled through the Monthly Maintenance plan.' },
-	{ q: 'How does payment work?', a: '[PENDIENTE DE REVISIÓN] Payment details are agreed directly with you before the project starts.' },
-	{ q: 'What information do I need to provide?', a: 'Mainly your logo (if you have one), text or general ideas of what you want to communicate, photos if available, and your contact details.' },
-	{ q: 'Will my site show up on Google?', a: "The Pro Plan includes basic SEO to help your site be indexable and well structured for search engines. I can't guarantee specific rankings, but every site is built with good SEO practices from the start." },
+	{ q: 'How much does a website cost?', a: 'It depends on the scope, design and features of each project. You can review our plans in the Services section; final terms are set in a custom quote.' },
+	{ q: 'How long does development take?', a: 'It depends on the plan: the Basic Plan is delivered in 5-7 business days, and the Pro Plan in 10-15 business days after we define the content.' },
+	{ q: 'What do I need to get started?', a: 'Mainly your logo (if you have one), text or general ideas of what you want to communicate, photos if available, and your contact details.' },
+	{ q: 'Will it work on phones?', a: 'Yes, every site we build is responsive: it adapts to phone, tablet and desktop.' },
+	{ q: 'Can I connect WhatsApp?', a: 'Yes, every plan includes WhatsApp integration so your customers can message you directly from the site.' },
+	{ q: 'Will my site show up on Google?', a: "The Pro Plan includes basic SEO to help your site be indexable and well structured for search engines. We can't guarantee specific rankings, but every site is built with good SEO practices from the start." },
+	{ q: 'Do you include domain and hosting?', a: "First-year hosting is included in both plans. You'll need to own or purchase the domain separately; if you don't have one, we can guide you through choosing and setting it up." },
+	{ q: 'Can I request changes?', a: 'Yes. There is a review stage during development, and if you need ongoing changes later, the Monthly Maintenance plan includes up to 2 content changes per month.' },
+	{ q: 'Do you offer maintenance?', a: 'Yes, we offer a Monthly Maintenance plan: managed hosting and domain, periodic backups, security updates and uptime monitoring.' },
+	{ q: 'How does payment work?', a: 'Payment is made via bank transfer, with an upfront deposit to start the project and a remaining balance tied to delivery or launch. Specific terms are set in the quote, based on scope, design, features and timeline.' },
 ];
 ---
 
@@ -141,9 +143,9 @@ const faqs = [
 	<section class="border-t border-slate-100 bg-slate-50">
 		<div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
 			<SectionHeader
-				eyebrow="Why work with me"
+				eyebrow="Why choose Desarrolla Aysén"
 				title="A clear process, built for real businesses"
-				subtitle="No fine print, no empty promises: here's how I work with every client."
+				subtitle="No fine print, no empty promises: here's how we work with every client."
 			/>
 			<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 				{trust.map((item) => <FeatureCard icon={item.icon} title={item.title} text={item.text} />)}
@@ -166,7 +168,7 @@ const faqs = [
 	<!-- Process -->
 	<section class="border-t border-slate-100 bg-slate-50">
 		<div class="mx-auto max-w-4xl px-6 py-16 sm:py-20">
-			<SectionHeader eyebrow="How I work" title="An organized process, start to finish" align="left" />
+			<SectionHeader eyebrow="How we work" title="An organized process, start to finish" align="left" />
 			<div class="mt-12">
 				{process.map((step, i) => (
 					<ProcessStep number={i + 1} title={step.title} text={step.text} isLast={i === process.length - 1} />
@@ -244,7 +246,7 @@ const faqs = [
 	<section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
 		<CTASection
 			title="Ready to give your business the presence it deserves?"
-			subtitle="Tell me about your idea and let's talk about the best plan for your business."
+			subtitle="Tell us about your idea and let's talk about the best plan for your business."
 			primaryLabel="Get a quote"
 			primaryHref={nav.contact}
 			secondaryLabel="View plans"

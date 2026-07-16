@@ -35,7 +35,7 @@ export const ui = {
 	es: {
 		'nav.home': 'Inicio',
 		'nav.services': 'Servicios',
-		'nav.about': 'Sobre mí',
+		'nav.about': 'Nosotros',
 		'nav.contact': 'Contacto',
 		'nav.blog': 'Blog',
 		'nav.menu': 'Menú',
@@ -52,7 +52,7 @@ export const ui = {
 	en: {
 		'nav.home': 'Home',
 		'nav.services': 'Services',
-		'nav.about': 'About',
+		'nav.about': 'About us',
 		'nav.contact': 'Contact',
 		'nav.blog': 'Blog',
 		'nav.menu': 'Menu',
