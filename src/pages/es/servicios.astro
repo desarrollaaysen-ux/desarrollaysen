@@ -24,16 +24,21 @@ const faqs = [
 	title="Servicios"
 	description="Planes de desarrollo web para pymes en Chile: sitio básico, sitio profesional y mantención mensual."
 >
-	<section class="mx-auto max-w-6xl px-6 py-16 text-center sm:py-20">
-		<span class="inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
-			Planes claros, sin letra chica
-		</span>
-		<h1 class="mt-6 text-4xl font-extrabold tracking-tight text-slate-900">Servicios</h1>
-		<p class="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
-			Planes pensados para pequeñas y medianas empresas que necesitan una
-			presencia web sólida, sin complicaciones. Elige el que se ajusta a
-			dónde está tu negocio hoy.
-		</p>
+	<section class="relative overflow-hidden">
+		<div class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,var(--color-brand-100),transparent_60%)]"></div>
+		<div class="mx-auto max-w-4xl px-6 py-20 text-center sm:py-28">
+			<span class="animate-fade-up inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
+				Planes claros, sin letra chica
+			</span>
+			<h1 class="animate-fade-up mt-6 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl" style="animation-delay:60ms">
+				Servicios
+			</h1>
+			<p class="animate-fade-up mx-auto mt-6 max-w-2xl text-lg text-slate-600" style="animation-delay:120ms">
+				Planes pensados para pequeñas y medianas empresas que necesitan una
+				presencia web sólida, sin complicaciones. Elige el que se ajusta a
+				dónde está tu negocio hoy.
+			</p>
+		</div>
 	</section>
 
 	<section class="mx-auto max-w-6xl px-6 pb-8">
@@ -76,25 +81,25 @@ const faqs = [
 		</article>
 	</section>
 
-	<section class="mx-auto max-w-4xl px-6 py-16">
-		<blockquote class="rounded-2xl border-l-4 border-brand-600 bg-brand-50/60 p-8 text-lg leading-relaxed text-slate-700">
-			<p>
-				Un sitio que funciona bien, sin complicaciones. En Desarrolla Aysén nos
-				tomamos en serio los detalles que muchos pasan por alto: que tu página
-				cargue rápido, se vea bien en el celular y esté construida con buenas
-				prácticas de seguridad desde el primer día. No prometemos magia —
-				prometemos un trabajo bien hecho, pensado para que tu negocio tenga una
-				presencia online sólida y sin dolores de cabeza.
-			</p>
-		</blockquote>
+	<section class="border-t border-slate-100 bg-slate-50">
+		<div class="mx-auto max-w-4xl px-6 py-16 sm:py-20">
+			<blockquote class="rounded-2xl border-l-4 border-brand-600 bg-white p-8 text-lg leading-relaxed text-slate-700 shadow-sm">
+				<p>
+					Un sitio que funciona bien, sin complicaciones. En Desarrolla Aysén nos
+					tomamos en serio los detalles que muchos pasan por alto: que tu página
+					cargue rápido, se vea bien en el celular y esté construida con buenas
+					prácticas de seguridad desde el primer día. No prometemos magia —
+					prometemos un trabajo bien hecho, pensado para que tu negocio tenga una
+					presencia online sólida y sin dolores de cabeza.
+				</p>
+			</blockquote>
+		</div>
 	</section>
 
-	<section class="border-t border-slate-100 bg-slate-50">
-		<div class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
-			<SectionHeader eyebrow="Preguntas frecuentes" title="Dudas sobre los planes" />
-			<div class="mt-12 space-y-3">
-				{faqs.map((faq) => <FAQItem question={faq.q} answer={faq.a} />)}
-			</div>
+	<section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+		<SectionHeader eyebrow="Preguntas frecuentes" title="Dudas sobre los planes" />
+		<div class="mt-12 space-y-3">
+			{faqs.map((faq) => <FAQItem question={faq.q} answer={faq.a} />)}
 		</div>
 	</section>
 
