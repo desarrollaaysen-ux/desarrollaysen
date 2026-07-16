@@ -1,23 +1,27 @@
-// Datos de contacto centralizados. Reemplaza estos dos valores cuando estén
-// definidos — todas las páginas (Contacto, y cualquier otra que los use) los
-// toman de acá, así que no hay que tocarlos en más de un lugar.
+// Datos de contacto centralizados. Todo el sitio debe importar desde acá —
+// nunca repetir el número de WhatsApp ni el correo escritos a mano en un
+// componente o página.
 export const contactInfo = {
+	// Correo profesional: todavía no está contratado/configurado (ver
+	// comparación de Google Workspace / Zoho Mail). No publicar hasta que
+	// exista un buzón real funcionando.
 	email: '[CORREO PROFESIONAL PENDIENTE]',
-	whatsapp: '[NÚMERO DE WHATSAPP PENDIENTE]',
-	// Cuando el número de WhatsApp esté definido (formato internacional, solo
-	// dígitos, ej: "56912345678"), completar acá para generar el link wa.me
-	// automáticamente. Mientras tanto queda null y no se muestra el botón.
-	whatsappHref: null as string | null,
+
+	// Número oficial de Desarrolla Aysén, en formato legible para mostrar en
+	// pantalla.
+	whatsapp: '+56 9 3418 4912',
+
+	// Mismo número en formato E.164 sin espacios/símbolos, para construir el
+	// link de wa.me.
+	whatsappDigits: '56934184912',
 };
 
-export const contactCopyEs = {
-	intro: 'Cuéntanos sobre tu proyecto y te ayudaremos a encontrar una solución adecuada para tu negocio.',
-	availability: 'Puedes enviarnos tu consulta en cualquier momento.',
-	responseTime: 'Normalmente respondemos dentro de 24 horas hábiles.',
-};
+const whatsappMessageEs =
+	'Hola, vi el sitio de Desarrolla Aysén y quisiera consultar por el desarrollo de una página web para mi negocio.';
 
-export const contactCopyEn = {
-	intro: "Tell us about your project and we'll help you find the right solution for your business.",
-	availability: 'You can send us your inquiry at any time.',
-	responseTime: 'We typically respond within 24 business hours.',
-};
+const whatsappMessageEn =
+	"Hi, I saw the Desarrolla Aysén website and I'd like to ask about web development for my business.";
+
+/** Construye el link wa.me con el mensaje prellenado y correctamente codificado. */
+export function getWhatsAppHref(lang: 'es' | 'en'): string {
+	const message = lang === 'es' ? whatsappMessageE
