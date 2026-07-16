@@ -1,23 +1,46 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { routes } from '../../i18n/ui';
+import SectionHeader from '../../components/ui/SectionHeader.astro';
+import IconWrapper from '../../components/ui/IconWrapper.astro';
+import ProcessStep from '../../components/ui/ProcessStep.astro';
 import CTASection from '../../components/ui/CTASection.astro';
 
 const nav = routes.en;
 
-const values = [
-	{ icon: 'M8 10h8M8 14h5M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 0 1-4-.8L3 20l1.2-3.6A7.9 7.9 0 0 1 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8Z', title: 'Clear communication', text: 'We talk with you in plain language, no unnecessary jargon, at every stage of the project.' },
-	{ icon: 'm4.5 12.75 6 6 9-13.5', title: 'Close support', text: "We support every project from start to finish, keeping you updated on progress." },
-	{ icon: 'M12 3 4 6.5v5.6c0 4.9 3.4 9.4 8 10.4 4.6-1 8-5.5 8-10.4V6.5L12 3Z', title: 'Solid technical practices', text: 'Projects are built considering good security, performance and privacy practices.' },
+// Key concepts that visually summarize the brand identity (no invented
+// figures, just descriptive labels).
+const concepts = [
+	{ icon: 'M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23-.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5', label: 'Design' },
+	{ icon: 'M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5', label: 'Development' },
+	{ icon: 'm4.5 12.75 6 6 9-13.5', label: 'Close support' },
+	{ icon: 'M12 3 4 6.5v5.6c0 4.9 3.4 9.4 8 10.4 4.6-1 8-5.5 8-10.4V6.5L12 3Z', label: 'Best practices' },
 ];
 
 const services = [
-	'Professional website development',
-	'Pages for small businesses and entrepreneurs',
-	'Landing pages',
-	'Corporate sites',
-	'Digital portfolios',
-	'Product or service catalogs',
+	{ icon: 'M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 4h14', title: 'Professional website development' },
+	{ icon: 'M9 3h6a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm3 15h.01', title: 'Pages for small businesses and entrepreneurs' },
+	{ icon: 'M13 3 4 14h6l-1 7 9-11h-6l1-7Z', title: 'Landing pages' },
+	{ icon: 'M12 3 2 8l10 5 10-5-10-5ZM2 12l10 5 10-5M2 16l10 5 10-5', title: 'Corporate sites' },
+	{ icon: 'M3 5.25A2.25 2.25 0 0 1 5.25 3h13.5A2.25 2.25 0 0 1 21 5.25v13.5A2.25 2.25 0 0 1 18.75 21H5.25A2.25 2.25 0 0 1 3 18.75V5.25Z', title: 'Digital portfolios' },
+	{ icon: 'M4 6h16M4 12h16M4 18h7', title: 'Product or service catalogs' },
+];
+
+// Same process already published on the Home page: reused as-is, without
+// adding new timeframes or guarantees.
+const process = [
+	{ title: 'Initial conversation', text: "We talk about your business, what you need and what you expect from the site." },
+	{ title: 'Defining requirements', text: 'We define the scope, content and the plan that best fits your business.' },
+	{ title: 'Design and development', text: 'We build your site with a modern design and solid technical practices.' },
+	{ title: 'Review', text: 'We review the result together and make any adjustments needed.' },
+	{ title: 'Launch', text: 'Your site goes live, with HTTPS and first-year hosting included.' },
+	{ title: 'Support', text: "We stay available for questions and, if you'd like, continue with monthly maintenance." },
+];
+
+const values = [
+	{ icon: 'M8 10h8M8 14h5M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 0 1-4-.8L3 20l1.2-3.6A7.9 7.9 0 0 1 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8Z', title: 'Clear communication', text: 'We talk with you in plain language, no unnecessary jargon, at every stage of the project.' },
+	{ icon: 'm4.5 12.75 6 6 9-13.5', title: 'Close support', text: 'We support every project from start to finish, keeping you updated on progress.' },
+	{ icon: 'M12 3 4 6.5v5.6c0 4.9 3.4 9.4 8 10.4 4.6-1 8-5.5 8-10.4V6.5L12 3Z', title: 'Solid technical practices', text: 'Projects are built considering good security, performance and privacy practices.' },
 ];
 ---
 
@@ -27,64 +50,99 @@ const services = [
 	title="About us"
 	description="Meet Desarrolla Aysén: website development for small businesses and entrepreneurs in Chile."
 >
-	<section class="mx-auto max-w-4xl px-6 py-16 sm:py-20">
-		<span class="inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
-			About us
-		</span>
-		<h1 class="mt-6 text-4xl font-extrabold tracking-tight text-slate-900">Desarrolla Aysén</h1>
-
-		<div class="mt-8 space-y-5 text-lg text-slate-600">
-			<p>
-				At Desarrolla Aysén, we help small businesses and entrepreneurs
-				strengthen their digital presence through modern, fast websites
-				tailored to their goals.
-			</p>
-			<p>
-				Our approach combines design, technology and close support to build
-				clear, functional, easy-to-use pages designed to build trust and make
-				it easier to connect with new customers.
+	<!-- Header -->
+	<section class="relative overflow-hidden">
+		<div class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,var(--color-brand-100),transparent_60%)]"></div>
+		<div class="mx-auto max-w-4xl px-6 py-20 text-center sm:py-28">
+			<span class="animate-fade-up inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
+				Get to know us
+			</span>
+			<h1 class="animate-fade-up mt-6 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl" style="animation-delay:60ms">
+				Desarrolla Aysén
+			</h1>
+			<p class="animate-fade-up mx-auto mt-6 max-w-2xl text-lg text-slate-600" style="animation-delay:120ms">
+				We help small businesses and entrepreneurs strengthen their digital
+				presence through modern, fast websites tailored to their goals.
 			</p>
 		</div>
+	</section>
 
-		<div class="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-8">
-			<h2 class="text-xl font-bold text-slate-900">How we work</h2>
-			<p class="mt-4 text-slate-600">
-				Desarrolla Aysén exists to bring professional digital solutions to
-				businesses and entrepreneurs who need to improve their presence
-				online. We build fast, modern, functional websites, taking into
-				account each business's characteristics and commercial goals.
-			</p>
-			<p class="mt-4 text-slate-600">
-				We believe in a clear, direct and close service, where every client
-				can understand the process, take part in decisions, and get a
-				solution tailored to their needs.
-			</p>
-		</div>
+	<!-- Who we are -->
+	<section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+		<div class="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+			<div>
+				<span class="inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
+					Our identity
+				</span>
+				<h2 class="mt-4 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Who we are</h2>
+				<div class="mt-6 space-y-5 text-lg text-slate-600">
+					<p>
+						Our approach combines design, technology and close support to
+						build clear, functional, easy-to-use pages designed to build
+						trust and make it easier to connect with new customers.
+					</p>
+					<p>
+						Desarrolla Aysén exists to bring professional digital solutions to
+						businesses and entrepreneurs who need to improve their presence
+						online. We build fast, modern, functional websites, taking into
+						account each business's characteristics and commercial goals.
+					</p>
+					<p>
+						We believe in a clear, direct and close service, where every
+						client can understand the process, take part in decisions, and
+						get a solution tailored to their needs.
+					</p>
+				</div>
+			</div>
 
-		<div class="mt-16">
-			<h2 class="text-2xl font-bold tracking-tight text-slate-900">What we do</h2>
-			<ul class="mt-6 grid gap-3 sm:grid-cols-2">
-				{services.map((service) => (
-					<li class="flex items-start gap-2.5 text-sm text-slate-700">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mt-0.5 h-4 w-4 shrink-0 text-brand-600">
-							<path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-						</svg>
-						{service}
-					</li>
-				))}
-			</ul>
-		</div>
-
-		<div class="mt-16">
-			<h2 class="text-2xl font-bold tracking-tight text-slate-900">Our values</h2>
-			<div class="mt-8 grid gap-6 sm:grid-cols-3">
-				{values.map((value) => (
-					<div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-						<div class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-5 w-5">
-								<path stroke-linecap="round" stroke-linejoin="round" d={value.icon} />
-							</svg>
+			<!-- Visual block with key concepts (decorative, no figures). -->
+			<div class="relative mx-auto w-full max-w-sm">
+				<div class="grid grid-cols-2 gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-lg shadow-slate-900/5">
+					{concepts.map((concept) => (
+						<div class="flex flex-col items-center gap-3 rounded-2xl bg-slate-50 p-5 text-center">
+							<IconWrapper path={concept.icon} />
+							<span class="text-sm font-semibold text-slate-800">{concept.label}</span>
 						</div>
+					))}
+				</div>
+				<div class="absolute -bottom-6 -right-6 -z-10 h-32 w-32 rounded-3xl bg-brand-200/50 blur-2xl"></div>
+			</div>
+		</div>
+	</section>
+
+	<!-- What we do -->
+	<section class="border-t border-slate-100 bg-slate-50">
+		<div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+			<SectionHeader eyebrow="What we do" title="How we can help" subtitle="Web solutions built for small businesses and entrepreneurs." />
+			<div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+				{services.map((service) => (
+					<div class="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+						<IconWrapper path={service.icon} />
+						<span class="text-sm font-semibold text-slate-800">{service.title}</span>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- How we work -->
+	<section class="mx-auto max-w-4xl px-6 py-16 sm:py-20">
+		<SectionHeader eyebrow="How we work" title="A clear process, start to finish" align="left" />
+		<div class="mt-12">
+			{process.map((step, i) => (
+				<ProcessStep number={i + 1} title={step.title} text={step.text} isLast={i === process.length - 1} />
+			))}
+		</div>
+	</section>
+
+	<!-- Our values -->
+	<section class="border-t border-slate-100 bg-slate-50">
+		<div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+			<SectionHeader eyebrow="Our values" title="What guides every project" />
+			<div class="mt-12 grid gap-6 sm:grid-cols-3">
+				{values.map((value) => (
+					<div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+						<IconWrapper path={value.icon} />
 						<h3 class="mt-4 text-base font-semibold text-slate-900">{value.title}</h3>
 						<p class="mt-2 text-sm text-slate-600">{value.text}</p>
 					</div>
@@ -93,7 +151,8 @@ const services = [
 		</div>
 	</section>
 
-	<section class="mx-auto max-w-6xl px-6 pb-16 sm:pb-20">
+	<!-- Final CTA -->
+	<section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
 		<CTASection
 			title="Let's talk about your project"
 			subtitle="Tell us where your business is at and what you'd like your website to achieve."
