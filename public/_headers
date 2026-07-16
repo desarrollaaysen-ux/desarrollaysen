@@ -6,8 +6,15 @@
 # cargar el widget, frame-src porque a veces resuelve el challenge en un
 # iframe, y connect-src porque el propio widget hace llamadas de red.
 # Google Maps embed sigue permitido en frame-src.
-# Si agregas otro servicio externo (Analytics, otro widget, etc.), vas a
-# necesitar sumar su dominio acá también.
+# static.cloudflareinsights.com/cloudflareinsights.com: beacon de Cloudflare
+# Web Analytics, que Cloudflare inyecta automáticamente en el HTML si esa
+# función está activada en el dashboard del dominio. Si se desactiva Web
+# Analytics, estas dos entradas se pueden quitar sin romper nada.
+# Todos los scripts propios del sitio (menú móvil, formulario de contacto) se
+# sirven como archivos externos bajo /_astro/*.js (script-src 'self'), nunca
+# inline — no se necesita ni se debe agregar 'unsafe-inline'.
+# Si agregas otro servicio externo (otro widget, etc.), vas a necesitar sumar
+# su dominio acá también.
 
 /*
   X-Content-Type-Options: nosniff
@@ -15,4 +22,4 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), camera=(), microphone=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; frame-src https://www.google.com https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; frame-src https://www.google.com https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com https://cloudflareinsights.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests

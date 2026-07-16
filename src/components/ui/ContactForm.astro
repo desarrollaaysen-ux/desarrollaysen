@@ -27,6 +27,8 @@ const privacyHref = routes[lang].privacy;
 
 <form
 	id="contact-form"
+	method="post"
+	action="/api/contact"
 	class="space-y-5 rounded-2xl border border-slate-200 bg-white p-7 shadow-sm"
 	novalidate
 	data-labels={JSON.stringify({
@@ -137,68 +139,4 @@ const privacyHref = routes[lang].privacy;
 </form>
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-
-<script>
-	// Script empaquetado como archivo externo por Astro (sin define:vars) para
-	// respetar la CSP `script-src 'self'` sin necesidad de 'unsafe-inline'.
-	// Las etiquetas de texto llegan vía atributo data-labels en vez de estar
-	// inyectadas directamente en el HTML.
-	const form = document.getElementById('contact-form');
-	const statusEl = document.getElementById('contact-status');
-	const submitBtn = document.getElementById('contact-submit');
-	const labels = form ? JSON.parse(form.dataset.labels || '{}') : {};
-
-	form?.addEventListener('submit', async (e) => {
-		e.preventDefault();
-		if (!(form instanceof HTMLFormElement)) return;
-
-		const formData = new FormData(form);
-		const turnstileToken = formData.get('cf-turnstile-response');
-
-		submitBtn?.setAttribute('disabled', 'true');
-		if (statusEl) {
-			statusEl.textContent = labels.sending;
-			statusEl.className = 'text-sm text-slate-500';
-		}
-
-		try {
-			const res = await fetch('/api/contact', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({
-					name: formData.get('name'),
-					email: formData.get('email'),
-					company: formData.get('company'),
-					phone: formData.get('phone'),
-					message: formData.get('message'),
-					acceptPrivacy: formData.get('acceptPrivacy') === 'on',
-					website: formData.get('website'),
-					turnstileToken,
-				}),
-			});
-
-			const data = await res.json();
-
-			if (res.ok && data.ok) {
-				if (statusEl) {
-					statusEl.textContent = labels.success;
-					statusEl.className = 'text-sm text-emerald-600';
-				}
-				form.reset();
-			} else if (statusEl) {
-				statusEl.textContent = data.error || labels.error;
-				statusEl.className = 'text-sm text-red-600';
-			}
-		} catch {
-			if (statusEl) {
-				statusEl.textContent = labels.error;
-				statusEl.className = 'text-sm text-red-600';
-			}
-		} finally {
-			submitBtn?.removeAttribute('disabled');
-			if (window.turnstile) {
-				window.turnstile.reset();
-			}
-		}
-	});
-</script>
+<script is:inline type="module" src="/scripts/contact-form.js"></script>

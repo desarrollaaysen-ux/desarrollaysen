@@ -78,21 +78,4 @@ const isBlog = route === 'blog' || route === 'blogPost';
 	</nav>
 </header>
 
-<script>
-	// Menú hamburguesa: JS mínimo, sin dependencias, progressive enhancement
-	// (si el script no carga, la nav de escritorio sigue funcionando y en
-	// mobile el visitante puede navegar igual entrando a cada página).
-	const toggle = document.getElementById('menu-toggle');
-	const mobileNav = document.getElementById('mobile-nav');
-	const iconOpen = document.getElementById('icon-open');
-	const iconClose = document.getElementById('icon-close');
-
-	toggle?.addEventListener('click', () => {
-		const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-		toggle.setAttribute('aria-expanded', String(!isOpen));
-		mobileNav?.classList.toggle('hidden', isOpen);
-		mobileNav?.classList.toggle('flex', !isOpen);
-		iconOpen?.classList.toggle('hidden', !isOpen);
-		iconClose?.classList.toggle('hidden', isOpen);
-	});
-</script>
+<script is:inline type="module" src="/scripts/mobile-menu.js"></script>

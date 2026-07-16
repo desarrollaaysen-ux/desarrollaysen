@@ -41,6 +41,107 @@ function jsonResponse(body: unknown, status: number): Response {
 	});
 }
 
+/**
+ * Extrae un path relativo y seguro (nunca una URL absoluta a otro host) a
+ * partir del header Referer, para redirigir de vuelta al visitante en el
+ * envío tradicional (sin JS) del formulario. Si el Referer falta o no se
+ * puede interpretar, cae a "/". Esto evita cualquier posibilidad de open
+ * redirect: solo se usa el pathname+search, nunca el origin del Referer.
+ */
+function safeRedirectPath(refererHeader: string | null, resultFlag: 'ok' | 'error'): string {
+	let path = '/';
+	if (refererHeader) {
+		try {
+			const refererUrl = new URL(refererHeader);
+			path = refererUrl.pathname || '/';
+		} catch {
+			path = '/';
+		}
+	}
+	const separator = path.includes('?') ? '&' : '?';
+	return `${path}${separator}contact=${resultFlag}`;
+}
+
+/**
+ * Extrae el payload del formulario tanto si llega como JSON (envío normal vía
+ * fetch, con JavaScript activo) como si llega como
+ * application/x-www-form-urlencoded o multipart/form-data (envío nativo del
+ * <form>, sin JavaScript — progressive enhancement). Ambos casos terminan en
+ * la misma forma de datos y pasan por exactamente las mismas validaciones más
+ * abajo. No se permiten adjuntos: si el multipart trae un campo de tipo
+ * archivo, se rechaza.
+ */
+async function extractPayload(
+	request: Request
+): Promise<{ payload: ContactPayload; isJson: boolean } | { error: 'content-type' | 'too-large' | 'invalid' | 'file-not-allowed' }> {
+	const contentType = request.headers.get('Content-Type') ?? '';
+
+	const contentLengthHeader = request.headers.get('Content-Length');
+	if (contentLengthHeader && Number(contentLengthHeader) > MAX_BODY_BYTES) {
+		return { error: 'too-large' };
+	}
+
+	if (contentType.includes('application/json')) {
+		const rawBody = await request.text();
+		if (rawBody.length > MAX_BODY_BYTES) return { error: 'too-large' };
+		try {
+			const parsed = JSON.parse(rawBody);
+			return {
+				isJson: true,
+				payload: {
+					name: parsed.name,
+					email: parsed.email,
+					company: parsed.company,
+					phone: parsed.phone,
+					message: parsed.message,
+					acceptPrivacy: parsed.acceptPrivacy,
+					turnstileToken: parsed.turnstileToken,
+					website: parsed.website,
+				},
+			};
+		} catch {
+			return { error: 'invalid' };
+		}
+	}
+
+	if (contentType.includes('application/x-www-form-urlencoded') || contentType.includes('multipart/form-data')) {
+		let formData: FormData;
+		try {
+			formData = await request.formData();
+		} catch {
+			return { error: 'invalid' };
+		}
+
+		// No se permiten adjuntos bajo ninguna circunstancia.
+		for (const value of formData.values()) {
+			if (value instanceof File) {
+				return { error: 'file-not-allowed' };
+			}
+		}
+
+		const get = (key: string) => {
+			const value = formData.get(key);
+			return typeof value === 'string' ? value : undefined;
+		};
+
+		return {
+			isJson: false,
+			payload: {
+				name: get('name') ?? '',
+				email: get('email') ?? '',
+				company: get('company'),
+				phone: get('phone'),
+				message: get('message') ?? '',
+				acceptPrivacy: get('acceptPrivacy') === 'on' || get('acceptPrivacy') === 'true',
+				turnstileToken: get('cf-turnstile-response') ?? '',
+				website: get('website'),
+			},
+		};
+	}
+
+	return { error: 'content-type' };
+}
+
 /** Quita etiquetas HTML, caracteres de control y normaliza espacios. */
 function sanitizeText(value: unknown, maxLength: number): string {
 	if (typeof value !== 'string') return '';
@@ -146,33 +247,37 @@ function buildRawEmail(params: {
 
 export async function handleContactRequest(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
 	const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
+	const referer = request.headers.get('Referer');
 
-	// --- Content-Type: solo JSON. Rechaza cualquier multipart (archivos). ---
-	const contentType = request.headers.get('Content-Type') ?? '';
-	if (!contentType.includes('application/json')) {
-		console.log('contact_form: rejected (content-type)');
-		return jsonResponse({ ok: false, error: GENERIC_ERROR }, 415);
+	// Formato de respuesta: JSON para el envío normal vía fetch (con JS);
+	// redirect 303 same-path para el envío nativo del <form> (sin JS), para
+	// que el visitante vuelva a la página de contacto sin exponer nada en la
+	// URL (nunca se usan los datos del formulario en la respuesta, solo un
+	// indicador genérico ok/error).
+	const isJsonRequest = (request.headers.get('Content-Type') ?? '').includes('application/json');
+	const respond = (ok: boolean, status: number, error?: string): Response => {
+		if (!isJsonRequest) return new Response(null, { status: 303, headers: { Location: safeRedirectPath(referer, ok ? 'ok' : 'error') } });
+		return jsonResponse(ok ? { ok: true } : { ok: false, error: error ?? GENERIC_ERROR }, status);
+	};
+
+	// --- Extrae el payload, ya sea JSON (fetch, con JS) o form-urlencoded/
+	// multipart (envío nativo del <form>, sin JS). Ambos casos siguen
+	// exactamente las mismas validaciones más abajo. ---
+	const extracted = await extractPayload(request);
+
+	if ('error' in extracted) {
+		console.log(`contact_form: rejected (${extracted.error})`);
+		const status = extracted.error === 'too-large' ? 413 : extracted.error === 'content-type' ? 415 : 400;
+		return respond(false, status);
 	}
 
-	const rawBody = await request.text();
-	if (rawBody.length > MAX_BODY_BYTES) {
-		console.log('contact_form: rejected (payload too large)');
-		return jsonResponse({ ok: false, error: GENERIC_ERROR }, 413);
-	}
-
-	let payload: ContactPayload;
-	try {
-		payload = JSON.parse(rawBody);
-	} catch {
-		console.log('contact_form: rejected (invalid json)');
-		return jsonResponse({ ok: false, error: GENERIC_ERROR }, 400);
-	}
+	const { payload } = extracted;
 
 	// --- Honeypot: si viene relleno, es un bot. Respondemos "éxito" genérico
 	// sin enviar nada, para no revelar la detección. ---
 	if (payload.website && payload.website.trim() !== '') {
 		console.log('contact_form: honeypot triggered');
-		return jsonResponse({ ok: true }, 200);
+		return respond(true, 200);
 	}
 
 	// --- Rate limiting por IP (KV). Fail-open: si KV no responde, se continúa
@@ -184,7 +289,7 @@ export async function handleContactRequest(request: Request, env: Env, ctx: Exec
 		const elapsed = (Date.now() - Number(lastSubmission)) / 1000;
 		if (elapsed < RATE_LIMIT_MIN_INTERVAL_SECONDS) {
 			console.log('contact_form: rejected (too frequent)');
-			return jsonResponse({ ok: false, error: GENERIC_ERROR }, 429);
+			return respond(false, 429);
 		}
 	}
 
@@ -192,7 +297,7 @@ export async function handleContactRequest(request: Request, env: Env, ctx: Exec
 	const currentCount = currentCountRaw ? Number(currentCountRaw) : 0;
 	if (currentCount >= RATE_LIMIT_PER_IP_PER_HOUR) {
 		console.log('contact_form: rejected (rate limit)');
-		return jsonResponse({ ok: false, error: GENERIC_ERROR }, 429);
+		return respond(false, 429);
 	}
 
 	// --- Validación de campos ---
@@ -212,7 +317,7 @@ export async function handleContactRequest(request: Request, env: Env, ctx: Exec
 
 	if (!isValid) {
 		console.log('contact_form: rejected (validation)');
-		return jsonResponse({ ok: false, error: 'Revisa los datos ingresados e inténtalo de nuevo.' }, 400);
+		return respond(false, 400, 'Revisa los datos ingresados e inténtalo de nuevo.');
 	}
 
 	// --- Anti-duplicados: mismo email + mensaje en una ventana corta ---
@@ -220,14 +325,14 @@ export async function handleContactRequest(request: Request, env: Env, ctx: Exec
 	const isDuplicate = await safeKvGet(env.RATE_LIMIT, dupKey);
 	if (isDuplicate) {
 		console.log('contact_form: rejected (duplicate)');
-		return jsonResponse({ ok: true }, 200); // respuesta genérica, no revela el motivo
+		return respond(true, 200); // respuesta genérica, no revela el motivo
 	}
 
 	// --- Turnstile ---
 	const turnstileOk = await verifyTurnstile(payload.turnstileToken, env.TURNSTILE_SECRET_KEY, ip);
 	if (!turnstileOk) {
 		console.log('contact_form: rejected (turnstile)');
-		return jsonResponse({ ok: false, error: GENERIC_ERROR }, 403);
+		return respond(false, 403);
 	}
 
 	// --- Envío del correo ---
@@ -247,7 +352,7 @@ export async function handleContactRequest(request: Request, env: Env, ctx: Exec
 		await env.SEND_EMAIL.send(msg);
 	} catch (err) {
 		console.log('contact_form: error sending email');
-		return jsonResponse({ ok: false, error: GENERIC_ERROR }, 502);
+		return respond(false, 502);
 	}
 
 	// --- Actualizar contadores de rate limit / dedupe (best-effort, no bloquea la respuesta) ---
@@ -260,5 +365,5 @@ export async function handleContactRequest(request: Request, env: Env, ctx: Exec
 	);
 
 	console.log('contact_form: sent ok');
-	return jsonResponse({ ok: true }, 200);
+	return respond(true, 200);
 }
