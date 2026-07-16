@@ -5,8 +5,8 @@ import WhatsAppButton from '../../components/ui/WhatsAppButton.astro';
 import { contactInfo, contactCopyEs } from '../../data/contact';
 
 const items = [
-	{ label: contactInfo.email, icon: 'M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2Z', pending: true },
-	{ label: contactCopyEs.availability, icon: 'M12 6v6l4 2m6-2a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z', pending: false },
+	{ label: contactInfo.email, icon: 'M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2Z' },
+	{ label: contactCopyEs.availability, icon: 'M12 6v6l4 2m6-2a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z' },
 ];
 ---
 
@@ -29,12 +29,19 @@ const items = [
 
 		<div class="mt-10 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
 			<ContactForm
+				lang="es"
 				labels={{
 					name: 'Nombre',
 					email: 'Email',
+					company: 'Empresa (opcional)',
+					phone: 'Teléfono (opcional)',
 					message: 'Cuéntanos sobre tu proyecto',
 					submit: 'Enviar mensaje',
-					note: '[PENDIENTE DE REVISIÓN] Este formulario todavía no está conectado a un servicio de envío. Mientras tanto, escríbenos directamente a los medios de contacto de al lado.',
+					sending: 'Enviando...',
+					success: 'Gracias por escribirnos. Tu mensaje fue enviado correctamente.',
+					error: 'No pudimos enviar tu mensaje. Intenta nuevamente o escríbenos por WhatsApp.',
+					privacyPrefix: 'He leído y acepto la',
+					privacyLinkText: 'Política de Privacidad',
 				}}
 			/>
 
@@ -47,10 +54,7 @@ const items = [
 									<path stroke-linecap="round" stroke-linejoin="round" d={item.icon} />
 								</svg>
 							</span>
-							<span class="text-sm text-slate-700">
-								{item.pending && <span class="mr-1 font-semibold text-amber-700">[PENDIENTE DE REVISIÓN]</span>}
-								{item.label}
-							</span>
+							<span class="text-sm text-slate-700">{item.label}</span>
 						</div>
 					))
 				}

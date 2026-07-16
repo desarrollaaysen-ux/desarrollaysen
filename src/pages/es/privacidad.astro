@@ -1,0 +1,87 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { contactInfo } from '../../data/contact';
+---
+
+<Layout
+	lang="es"
+	route="privacy"
+	title="Política de Privacidad"
+	description="Cómo Desarrolla Aysén recopila, usa y protege la información entregada a través de este sitio."
+>
+	<section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+		<h1 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Política de Privacidad</h1>
+		<p class="mt-4 text-sm text-slate-500">Última actualización: 16 de julio de 2026</p>
+
+		<div class="prose mt-10">
+			<p>
+				Esta política explica qué información recopila Desarrolla Aysén a
+				través de este sitio web, con qué fines se utiliza y qué opciones
+				tienes al respecto.
+			</p>
+
+			<h2>Identidad del responsable</h2>
+			<p>
+				Este sitio es operado bajo la marca Desarrolla Aysén. Para efectos de
+				esta política de privacidad, el contacto responsable del tratamiento
+				de la información recibida a través de este sitio es{' '}
+				{contactInfo.email}.
+			</p>
+
+			<h2>Qué información recopilamos</h2>
+			<p>A través del formulario de contacto de este sitio recopilamos:</p>
+			<ul>
+				<li>Nombre</li>
+				<li>Correo electrónico</li>
+				<li>Empresa (opcional)</li>
+				<li>Teléfono (opcional)</li>
+				<li>El contenido del mensaje que nos escribas</li>
+			</ul>
+			<p>
+				Adicionalmente, para proteger el formulario contra spam y envíos
+				automatizados, utilizamos Cloudflare Turnstile, que puede procesar
+				información técnica del dispositivo y la conexión (como la dirección
+				IP) con ese único propósito.
+			</p>
+
+			<h2>Para qué usamos esta información</h2>
+			<p>
+				Usamos los datos que nos entregas exclusivamente para responder tu
+				consulta y, si corresponde, prepararte una cotización o propuesta de
+				trabajo. No vendemos ni compartimos esta información con terceros
+				para fines de marketing.
+			</p>
+
+			<h2>Cómo se envía y almacena</h2>
+			<p>
+				Los mensajes enviados a través del formulario se procesan mediante un
+				Worker de Cloudflare y se entregan directamente a la casilla de
+				correo de Desarrolla Aysén. No almacenamos el contenido de tu mensaje
+				en una base de datos permanente; solo se guarda temporalmente
+				información técnica mínima (como un identificador derivado de tu IP)
+				para prevenir abuso del formulario, y se elimina automáticamente
+				después de un plazo corto (horas).
+			</p>
+
+			<h2>Tus derechos</h2>
+			<p>
+				Puedes solicitar en cualquier momento acceder, corregir o eliminar la
+				información que nos hayas entregado, escribiéndonos a{' '}
+				{contactInfo.email}.
+			</p>
+
+			<h2>Cambios a esta política</h2>
+			<p>
+				Esta política puede actualizarse periódicamente. La fecha de la
+				última actualización se indica al inicio de este documento.
+			</p>
+
+			<h2>Contacto</h2>
+			<p>
+				Si tienes dudas sobre esta política de privacidad, puedes
+				escribirnos a través de la página de{' '}
+				<a href="/es/contacto/">Contacto</a>.
+			</p>
+		</div>
+	</section>
+</Layout>

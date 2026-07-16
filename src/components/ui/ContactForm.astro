@@ -1,28 +1,40 @@
 ---
-// Formulario visual. Todavía no está conectado a ningún servicio de envío
-// (Formspree, Cloudflare Turnstile + endpoint propio, etc.) — eso requiere
-// una decisión y, probablemente, sumar un dominio a la CSP, así que se deja
-// preparado visualmente hasta que se defina e implemente ese backend.
+// Formulario de contacto real: envía a POST /api/contact (manejado por el
+// Worker en worker/contact.ts), con Turnstile, honeypot y validación server-side.
+import { contactInfo } from '../../data/contact';
+import { routes, type Lang } from '../../i18n/ui';
+
 interface Props {
+	lang: Lang;
 	labels: {
 		name: string;
 		email: string;
+		company: string;
+		phone: string;
 		message: string;
 		submit: string;
-		note: string;
+		sending: string;
+		success: string;
+		error: string;
+		privacyPrefix: string;
+		privacyLinkText: string;
 	};
 }
 
-const { labels } = Astro.props;
+const { lang, labels } = Astro.props;
+const privacyHref = routes[lang].privacy;
 ---
 
-<form class="space-y-5 rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+<form id="contact-form" class="space-y-5 rounded-2xl border border-slate-200 bg-white p-7 shadow-sm" novalidate>
 	<div>
 		<label for="name" class="block text-sm font-medium text-slate-700">{labels.name}</label>
 		<input
 			type="text"
 			id="name"
 			name="name"
+			required
+			minlength="2"
+			maxlength="100"
 			autocomplete="name"
 			class="mt-1.5 block w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-slate-900 shadow-sm transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
 		/>
@@ -34,9 +46,36 @@ const { labels } = Astro.props;
 			type="email"
 			id="email"
 			name="email"
+			required
+			maxlength="150"
 			autocomplete="email"
 			class="mt-1.5 block w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-slate-900 shadow-sm transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
 		/>
+	</div>
+
+	<div class="grid gap-5 sm:grid-cols-2">
+		<div>
+			<label for="company" class="block text-sm font-medium text-slate-700">{labels.company}</label>
+			<input
+				type="text"
+				id="company"
+				name="company"
+				maxlength="100"
+				autocomplete="organization"
+				class="mt-1.5 block w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-slate-900 shadow-sm transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
+			/>
+		</div>
+		<div>
+			<label for="phone" class="block text-sm font-medium text-slate-700">{labels.phone}</label>
+			<input
+				type="tel"
+				id="phone"
+				name="phone"
+				maxlength="30"
+				autocomplete="tel"
+				class="mt-1.5 block w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-slate-900 shadow-sm transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
+			/>
+		</div>
 	</div>
 
 	<div>
@@ -45,18 +84,101 @@ const { labels } = Astro.props;
 			id="message"
 			name="message"
 			rows="4"
+			required
+			minlength="10"
+			maxlength="2000"
 			class="mt-1.5 block w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm text-slate-900 shadow-sm transition focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
 		></textarea>
 	</div>
 
+	<!-- Honeypot: campo invisible para personas, visible para bots. -->
+	<div class="absolute -left-[9999px] top-auto h-0 w-0 overflow-hidden" aria-hidden="true">
+		<label for="website">No completar este campo</label>
+		<input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+	</div>
+
+	<label class="flex items-start gap-2.5 text-sm text-slate-600">
+		<input
+			type="checkbox"
+			id="acceptPrivacy"
+			name="acceptPrivacy"
+			required
+			class="mt-0.5 h-4 w-4 shrink-0 rounded border-slate-300 text-brand-600 focus:ring-brand-500/30"
+		/>
+		<span>
+			{labels.privacyPrefix}
+			{' '}
+			<a href={privacyHref} class="font-medium text-brand-600 underline hover:text-brand-700" target="_blank" rel="noopener noreferrer">
+				{labels.privacyLinkText}
+			</a>
+		</span>
+	</label>
+
+	<div class="cf-turnstile" data-sitekey={contactInfo.turnstileSiteKey} data-theme="light"></div>
+
 	<button
 		type="submit"
-		disabled
-		aria-disabled="true"
-		class="inline-flex w-full items-center justify-center rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white opacity-60 shadow-md shadow-brand-600/20 sm:w-auto"
+		id="contact-submit"
+		class="inline-flex w-full items-center justify-center rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-md shadow-brand-600/20 transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
 	>
 		{labels.submit}
 	</button>
 
-	<p class="text-xs text-slate-400">{labels.note}</p>
+	<p id="contact-status" class="text-sm" role="status" aria-live="polite"></p>
 </form>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
+<script define:vars={{ labels }}>
+	const form = document.getElementById('contact-form');
+	const statusEl = document.getElementById('contact-status');
+	const submitBtn = document.getElementById('contact-submit');
+
+	form?.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		if (!(form instanceof HTMLFormElement)) return;
+
+		const formData = new FormData(form);
+		const turnstileToken = formData.get('cf-turnstile-response');
+
+		submitBtn?.setAttribute('disabled', 'true');
+		statusEl.textContent = labels.sending;
+		statusEl.className = 'text-sm text-slate-500';
+
+		try {
+			const res = await fetch('/api/contact', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					name: formData.get('name'),
+					email: formData.get('email'),
+					company: formData.get('company'),
+					phone: formData.get('phone'),
+					message: formData.get('message'),
+					acceptPrivacy: formData.get('acceptPrivacy') === 'on',
+					website: formData.get('website'),
+					turnstileToken,
+				}),
+			});
+
+			const data = await res.json();
+
+			if (res.ok && data.ok) {
+				statusEl.textContent = labels.success;
+				statusEl.className = 'text-sm text-emerald-600';
+				form.reset();
+			} else {
+				statusEl.textContent = data.error || labels.error;
+				statusEl.className = 'text-sm text-red-600';
+			}
+		} catch {
+			statusEl.textContent = labels.error;
+			statusEl.className = 'text-sm text-red-600';
+		} finally {
+			submitBtn?.removeAttribute('disabled');
+			if (window.turnstile) {
+				window.turnstile.reset();
+			}
+		}
+	});
+</script>

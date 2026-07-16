@@ -6,7 +6,6 @@ import FeatureCard from '../../components/ui/FeatureCard.astro';
 import ServiceCard from '../../components/ui/ServiceCard.astro';
 import PricingCard from '../../components/ui/PricingCard.astro';
 import ProcessStep from '../../components/ui/ProcessStep.astro';
-import ProjectCard from '../../components/ui/ProjectCard.astro';
 import FAQItem from '../../components/ui/FAQItem.astro';
 import CTASection from '../../components/ui/CTASection.astro';
 import { plansEn, maintenanceEn } from '../../data/plans';
@@ -196,17 +195,7 @@ const faqs = [
 		</ul>
 	</section>
 
-	<!-- Portfolio -->
-	<section class="border-t border-slate-100 bg-slate-50">
-		<div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-			<SectionHeader eyebrow="Projects" title="Work I've done" subtitle="This section will be updated with real projects as they become available." />
-			<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-				<ProjectCard pendingLabel="Reserved space for the first published project." />
-				<ProjectCard pendingLabel="Reserved space for the second published project." />
-				<ProjectCard pendingLabel="Reserved space for the third published project." />
-			</div>
-		</div>
-	</section>
+	<!-- Portfolio: hidden until real, reviewed projects are available to publish. -->
 
 	<!-- Pricing -->
 	<section class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
@@ -248,4 +237,9 @@ const faqs = [
 			title="Ready to give your business the presence it deserves?"
 			subtitle="Tell us about your idea and let's talk about the best plan for your business."
 			primaryLabel="Get a quote"
-			prim
+			primaryHref={nav.contact}
+			secondaryLabel="View plans"
+			secondaryHref={nav.services}
+		/>
+	</section>
+</Layout>

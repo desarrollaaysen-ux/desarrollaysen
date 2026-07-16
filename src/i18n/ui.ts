@@ -16,6 +16,7 @@ export const routes = {
 		about: '/es/sobre-mi/',
 		contact: '/es/contacto/',
 		blog: '/es/blog/',
+		privacy: '/es/privacidad/',
 	},
 	en: {
 		home: '/en/',
@@ -23,6 +24,7 @@ export const routes = {
 		about: '/en/about/',
 		contact: '/en/contact/',
 		blog: '/en/blog/',
+		privacy: '/en/privacy/',
 	},
 } as const;
 
@@ -48,6 +50,7 @@ export const ui = {
 		'blog.backToBlog': 'Volver al blog',
 		'blog.related': 'Artículos relacionados',
 		'blog.readMore': 'Leer más',
+		'footer.privacy': 'Política de Privacidad',
 	},
 	en: {
 		'nav.home': 'Home',
@@ -65,5 +68,6 @@ export const ui = {
 		'blog.backToBlog': 'Back to blog',
 		'blog.related': 'Related articles',
 		'blog.readMore': 'Read more',
+		'footer.privacy': 'Privacy Policy',
 	},
 } as const;

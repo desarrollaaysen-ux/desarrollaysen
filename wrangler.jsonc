@@ -1,8 +1,26 @@
 {
-	"name": "desarrollaysen",
-	"compatibility_date": "2026-07-15",
-	"assets": {
-		"directory": "./dist/",
-		"html_handling": "auto-trailing-slash"
-	}
+  "name": "desarrollaysen",
+  "compatibility_date": "2026-07-15",
+  "main": "worker/index.ts",
+  "assets": {
+    "directory": "./dist/",
+    "html_handling": "auto-trailing-slash",
+    "binding": "ASSETS"
+  },
+  "vars": {
+    "ALLOWED_ORIGIN": "https://desarrollaysen.com",
+    "CONTACT_FROM_ADDRESS": "no-reply@desarrollaysen.com"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "RATE_LIMIT",
+      "id": "d382300ea5ed4e4698e03089ddd5f11a"
+    }
+  ],
+  "send_email": [
+    {
+      "name": "SEND_EMAIL",
+      "destination_address": "desarrollaaysen@gmail.com"
+    }
+  ]
 }

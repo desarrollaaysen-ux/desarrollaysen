@@ -15,7 +15,7 @@ interface Props {
 
 const { lang, route, title, description, image } = Astro.props;
 
-const siteName = 'Desarrolla y Sen';
+const siteName = 'Desarrolla Aysén';
 const fullTitle = `${title} | ${siteName}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = image ? new URL(image, Astro.site) : undefined;

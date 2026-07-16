@@ -19,8 +19,8 @@ const posts = (await getCollection('blogEn', ({ data }) => !data.draft)).sort(
 
 		{
 			posts.length === 0 && (
-				<p class="mt-10 rounded-xl border border-dashed border-amber-300 bg-amber-50 p-5 text-sm text-amber-900">
-					<span class="font-semibold">[PENDIENTE DE REVISIÓN]</span> No published articles yet.
+				<p class="mt-10 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-5 text-sm text-slate-600">
+					We'll be publishing our first articles soon. Check back shortly.
 				</p>
 			)
 		}

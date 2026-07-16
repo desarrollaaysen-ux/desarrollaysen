@@ -1,0 +1,83 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { contactInfo } from '../../data/contact';
+---
+
+<Layout
+	lang="en"
+	route="privacy"
+	title="Privacy Policy"
+	description="How Desarrolla Aysén collects, uses and protects information submitted through this site."
+>
+	<section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+		<h1 class="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">Privacy Policy</h1>
+		<p class="mt-4 text-sm text-slate-500">Last updated: July 16, 2026</p>
+
+		<div class="prose mt-10">
+			<p>
+				This policy explains what information Desarrolla Aysén collects
+				through this website, what it's used for, and what choices you have.
+			</p>
+
+			<h2>Data controller identity</h2>
+			<p>
+				This site is operated under the Desarrolla Aysén brand. For the
+				purposes of this privacy policy, the contact responsible for
+				processing information submitted through this site is{' '}
+				{contactInfo.email}.
+			</p>
+
+			<h2>What information we collect</h2>
+			<p>Through this site's contact form we collect:</p>
+			<ul>
+				<li>Name</li>
+				<li>Email address</li>
+				<li>Company (optional)</li>
+				<li>Phone (optional)</li>
+				<li>The content of the message you send us</li>
+			</ul>
+			<p>
+				Additionally, to protect the form against spam and automated
+				submissions, we use Cloudflare Turnstile, which may process
+				technical information about your device and connection (such as
+				your IP address) for that sole purpose.
+			</p>
+
+			<h2>How we use this information</h2>
+			<p>
+				We use the data you provide solely to respond to your inquiry and,
+				if applicable, to prepare a quote or project proposal for you. We
+				don't sell or share this information with third parties for
+				marketing purposes.
+			</p>
+
+			<h2>How it's sent and stored</h2>
+			<p>
+				Messages submitted through the form are processed by a Cloudflare
+				Worker and delivered directly to Desarrolla Aysén's mailbox. We
+				don't store the content of your message in a permanent database;
+				only minimal technical information (such as an identifier derived
+				from your IP) is kept briefly to prevent abuse of the form, and is
+				automatically deleted after a short period (hours).
+			</p>
+
+			<h2>Your rights</h2>
+			<p>
+				You can request to access, correct or delete the information you've
+				provided us at any time by writing to {contactInfo.email}.
+			</p>
+
+			<h2>Changes to this policy</h2>
+			<p>
+				This policy may be updated periodically. The date of the last update
+				is shown at the top of this document.
+			</p>
+
+			<h2>Contact</h2>
+			<p>
+				If you have questions about this privacy policy, you can reach us
+				through the <a href="/en/contact/">Contact</a> page.
+			</p>
+		</div>
+	</section>
+</Layout>

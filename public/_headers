@@ -1,11 +1,13 @@
-# Headers de seguridad para Cloudflare Pages.
+# Headers de seguridad para Cloudflare Pages/Workers.
 # Referencia: https://developers.cloudflare.com/pages/configuration/headers/
 #
-# Nota sobre la CSP: es intencionalmente restrictiva (sin scripts inline,
-# sin frameworks externos). Si más adelante agregas algo como Cloudflare
-# Turnstile, reCAPTCHA, Google Analytics o un widget embebido, vas a
-# necesitar sumar sus dominios a script-src / connect-src / frame-src.
-# Google Maps embed ya está permitido en frame-src.
+# Nota sobre la CSP: se agregó challenges.cloudflare.com para Cloudflare
+# Turnstile (widget anti-spam del formulario de contacto): script-src para
+# cargar el widget, frame-src porque a veces resuelve el challenge en un
+# iframe, y connect-src porque el propio widget hace llamadas de red.
+# Google Maps embed sigue permitido en frame-src.
+# Si agregas otro servicio externo (Analytics, otro widget, etc.), vas a
+# necesitar sumar su dominio acá también.
 
 /*
   X-Content-Type-Options: nosniff
@@ -13,4 +15,4 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), camera=(), microphone=()
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; frame-src https://www.google.com; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; frame-src https://www.google.com https://challenges.cloudflare.com; connect-src 'self' https://challenges.cloudflare.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'; upgrade-insecure-requests
