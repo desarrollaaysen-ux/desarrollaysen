@@ -3,6 +3,7 @@ title: "¿Por qué tu negocio necesita una página web aunque ya use redes socia
 description: "Las redes sociales ayudan a conectar con clientes, pero una página web cumple un rol distinto y complementario. Te contamos por qué."
 pubDate: 2026-07-16
 draft: false
+translationSlug: "why-your-business-needs-a-website"
 ---
 
 Muchas pymes y emprendimientos en Chile ya tienen presencia en redes sociales, y eso es un buen punto de partida. Pero las redes sociales y una página web cumplen roles distintos, y en Desarrolla Aysén recomendamos pensarlas como complementarias, no como reemplazo una de la otra.

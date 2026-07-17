@@ -5,13 +5,26 @@ import { routes } from '../../../i18n/ui';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blogEn', ({ data }) => !data.draft);
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: { post, allPosts: posts },
-	}));
+
+	// Solo se ofrece hreflang hacia un post en español si ese post
+	// efectivamente existe y está publicado (nunca hacia un borrador o un
+	// slug que no corresponda a ninguna página real).
+	const publishedEsPosts = await getCollection('blogEs', ({ data }) => !data.draft);
+	const publishedEsIds = new Set(publishedEsPosts.map((p) => p.id));
+
+	return posts.map((post) => {
+		const translationSlug = post.data.translationSlug;
+		const translatedPath =
+			translationSlug && publishedEsIds.has(translationSlug) ? `/es/blog/${translationSlug}/` : undefined;
+
+		return {
+			params: { slug: post.id },
+			props: { post, allPosts: posts, translatedPath },
+		};
+	});
 }
 
-const { post, allPosts } = Astro.props;
+const { post, allPosts, translatedPath } = Astro.props;
 const { Content } = await render(post);
 
 const related = allPosts
@@ -20,7 +33,7 @@ const related = allPosts
 	.slice(0, 3);
 ---
 
-<Layout lang="en" route="blogPost" title={post.data.title} description={post.data.description}>
+<Layout lang="en" route="blogPost" title={post.data.title} description={post.data.description} translatedPath={translatedPath}>
 	<article class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
 		<a href={routes.en.blog} class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:text-brand-700">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4">

@@ -3,6 +3,7 @@ title: "Why your business needs a website even if you already use social media"
 description: "Social media helps you connect with customers, but a website plays a different, complementary role. Here's why."
 pubDate: 2026-07-16
 draft: false
+translationSlug: "por-que-tu-negocio-necesita-una-pagina-web"
 ---
 
 Many small businesses and entrepreneurs in Chile already have a presence on social media, and that's a good starting point. But social media and a website play different roles, and at Desarrolla Aysén we recommend thinking of them as complementary, not as a replacement for one another.

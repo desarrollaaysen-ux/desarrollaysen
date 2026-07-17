@@ -1,7 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import type { Lang, RouteKey } from '../i18n/ui';
+import { routes, type Lang, type RouteKey } from '../i18n/ui';
 import '../styles/global.css';
 
 interface Props {
@@ -11,15 +11,48 @@ interface Props {
 	description: string;
 	/** Ruta absoluta a una imagen OG, ej: "/og-image.jpg". Opcional. */
 	image?: string;
+	/**
+	 * Solo aplica cuando route === 'blogPost'. Ruta (path) de la versión
+	 * traducida de ESTE post específico, ej. "/en/blog/mi-post/". Debe venir
+	 * ya validada por la página que la pasa (que el post traducido exista y
+	 * esté publicado) — Layout no puede saberlo por sí mismo porque cada
+	 * artículo tiene un slug propio, no un patrón fijo como el resto del
+	 * sitio. Si no se pasa, la página no emite hreflang (nunca se inventa
+	 * una alternativa de idioma).
+	 */
+	translatedPath?: string;
 }
 
-const { lang, route, title, description, image } = Astro.props;
+const { lang, route, title, description, image, translatedPath } = Astro.props;
 
 const siteName = 'Desarrolla Aysén';
 const fullTitle = `${title} | ${siteName}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = image ? new URL(image, Astro.site) : undefined;
 const ogLocale = lang === 'es' ? 'es_CL' : 'en_US';
+
+// --- hreflang ---
+// Páginas estáticas (todo route salvo 'blogPost'): el par ES/EN ya existe,
+// completo y correcto, en el mapa central `routes` (src/i18n/ui.ts) — no se
+// genera reemplazando texto en la URL actual, se toma el valor explícito ya
+// definido para cada idioma.
+// Posts de blog ('blogPost'): dependen enteramente de `translatedPath`, que
+// ya viene validado desde la página (ver src/pages/{es,en}/blog/[slug].astro).
+// Si no hay contraparte real, ambas variables quedan `undefined` y no se
+// emite ningún hreflang (nunca una alternativa falsa o hacia un borrador).
+let esPath: string | undefined;
+let enPath: string | undefined;
+
+if (route !== 'blogPost') {
+	esPath = routes.es[route];
+	enPath = routes.en[route];
+} else if (translatedPath) {
+	esPath = lang === 'es' ? Astro.url.pathname : translatedPath;
+	enPath = lang === 'en' ? Astro.url.pathname : translatedPath;
+}
+
+const esAlternateURL = esPath ? new URL(esPath, Astro.site) : undefined;
+const enAlternateURL = enPath ? new URL(enPath, Astro.site) : undefined;
 ---
 
 <!doctype html>
@@ -34,6 +67,18 @@ const ogLocale = lang === 'es' ? 'es_CL' : 'en_US';
 		<title>{fullTitle}</title>
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonicalURL} />
+
+		<!-- hreflang: solo se emite cuando existe realmente el par ES/EN
+		     (páginas estáticas siempre; posts de blog solo con traducción
+		     publicada). x-default apunta a la versión en español, que es la
+		     que sirve "/" por defecto sin detección de navegador. -->
+		{esAlternateURL && enAlternateURL && (
+			<>
+				<link rel="alternate" hreflang="es-CL" href={esAlternateURL} />
+				<link rel="alternate" hreflang="en" href={enAlternateURL} />
+				<link rel="alternate" hreflang="x-default" href={esAlternateURL} />
+			</>
+		)}
 
 		<!-- Open Graph -->
 		<meta property="og:type" content="website" />
