@@ -16,51 +16,66 @@ const items = [
 	title="Contacto"
 	description="Escríbenos para conversar sobre tu proyecto de sitio web."
 >
-	<section class="mx-auto max-w-5xl px-6 py-16 sm:py-20">
-		<span class="inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
-			Contacto
-		</span>
-		<h1 class="mt-6 text-4xl font-extrabold tracking-tight text-slate-900">Hablemos de tu proyecto</h1>
-		<p class="mt-4 max-w-xl text-lg text-slate-600">{contactCopyEs.intro}</p>
-
-		<div class="mt-8">
-			<WhatsAppButton lang="es" label={contactCopyEs.whatsappCta} />
+	<!-- Encabezado -->
+	<section class="relative overflow-hidden">
+		<div class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,var(--color-brand-100),transparent_60%)]"></div>
+		<div class="mx-auto max-w-5xl px-6 py-20 sm:py-28">
+			<span class="animate-fade-up inline-block rounded-full bg-brand-50 px-4 py-1 text-sm font-semibold text-brand-700">
+				Contacto
+			</span>
+			<h1 class="animate-fade-up mt-6 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl" style="animation-delay:60ms">
+				Hablemos de tu proyecto
+			</h1>
+			<p class="animate-fade-up mt-6 max-w-xl text-lg text-slate-600" style="animation-delay:120ms">{contactCopyEs.intro}</p>
 		</div>
+	</section>
 
-		<div class="mt-10 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-			<ContactForm
-				lang="es"
-				labels={{
-					name: 'Nombre',
-					email: 'Email',
-					company: 'Empresa (opcional)',
-					phone: 'Teléfono (opcional)',
-					message: 'Cuéntanos sobre tu proyecto',
-					submit: 'Enviar mensaje',
-					sending: 'Enviando...',
-					success: 'Gracias por escribirnos. Tu mensaje fue enviado correctamente.',
-					error: 'No pudimos enviar tu mensaje. Intenta nuevamente o escríbenos por WhatsApp.',
-					privacyPrefix: 'He leído y acepto la',
-					privacyLinkText: 'Política de Privacidad',
-				}}
-			/>
+	<!-- Formulario y medios de contacto -->
+	<section class="border-t border-slate-100 bg-slate-50">
+		<div class="mx-auto max-w-5xl px-6 py-16 sm:py-20">
+			<div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+				<ContactForm
+					lang="es"
+					labels={{
+						name: 'Nombre',
+						email: 'Email',
+						company: 'Empresa (opcional)',
+						phone: 'Teléfono (opcional)',
+						message: 'Cuéntanos sobre tu proyecto',
+						submit: 'Enviar mensaje',
+						sending: 'Enviando...',
+						success: 'Gracias por escribirnos. Tu mensaje fue enviado correctamente.',
+						error: 'No pudimos enviar tu mensaje. Intenta nuevamente o escríbenos por WhatsApp.',
+						privacyPrefix: 'He leído y acepto la',
+						privacyLinkText: 'Política de Privacidad',
+					}}
+				/>
 
-			<div class="space-y-4">
-				{
-					items.map((item) => (
-						<div class="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-							<span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-5 w-5">
-									<path stroke-linecap="round" stroke-linejoin="round" d={item.icon} />
-								</svg>
-							</span>
-							<span class="text-sm text-slate-700">{item.label}</span>
+				<div class="space-y-6">
+					<div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+						<h2 class="text-base font-semibold text-slate-900">Otras formas de contactarnos</h2>
+						<div class="mt-5 space-y-4">
+							{
+								items.map((item) => (
+									<div class="flex items-center gap-4">
+										<span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" class="h-5 w-5">
+												<path stroke-linecap="round" stroke-linejoin="round" d={item.icon} />
+											</svg>
+										</span>
+										<span class="text-sm text-slate-700">{item.label}</span>
+									</div>
+								))
+							}
 						</div>
-					))
-				}
+						<div class="mt-5 border-t border-slate-100 pt-5">
+							<WhatsAppButton lang="es" label={contactCopyEs.whatsappCta} />
+						</div>
+					</div>
 
-				<div class="rounded-xl border border-slate-200 bg-white p-5 text-sm text-slate-700 shadow-sm">
-					{contactCopyEs.responseTime}
+					<div class="rounded-2xl border border-slate-200 bg-white p-6 text-sm text-slate-700 shadow-sm">
+						{contactCopyEs.responseTime}
+					</div>
 				</div>
 			</div>
 		</div>
