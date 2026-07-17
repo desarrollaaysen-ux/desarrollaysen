@@ -20,11 +20,8 @@ const isBlog = route === 'blog' || route === 'blogPost';
 
 <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur-md">
 	<div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
-		<a href={nav.home} class="flex items-center gap-2 text-lg font-bold tracking-tight text-slate-900">
-			<span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 text-sm font-black text-white">
-				DS
-			</span>
-			Desarrolla Aysén
+		<a href={nav.home} class="flex items-center" aria-label="Desarrollaysen — Inicio">
+			<img src="/logo-header.png" alt="Desarrollaysen" class="h-12 w-auto" width="1542" height="381" />
 		</a>
 
 		<nav class="hidden items-center gap-7 md:flex" aria-label="Main navigation">
