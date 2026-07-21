@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import WhatsAppFloatButton from '../components/ui/WhatsAppFloatButton.astro';
 import { routes, type Lang, type RouteKey } from '../i18n/ui';
 import '../styles/global.css';
 
@@ -144,5 +145,9 @@ const organizationSchema =
 			<slot />
 		</main>
 		<Footer lang={lang} />
+		{/* Botón flotante de WhatsApp: en todas las páginas excepto Contacto,
+		    que ya tiene una opción de WhatsApp visible y suficiente dentro de
+		    su propio contenido (ver WhatsAppButton en contacto.astro/contact.astro). */}
+		{route !== 'contact' && <WhatsAppFloatButton lang={lang} />}
 	</body>
 </html>
