@@ -13,7 +13,8 @@ const checkIcon = 'm4.5 12.75 6 6 9-13.5';
 const faqs = [
 	{ q: 'Which plan is right for me?', a: "If you're just starting out and need something simple, the Basic Plan is enough. If you want to showcase several services, have a contact form and some SEO, the Pro Plan is the better fit." },
 	{ q: 'Can I switch plans later?', a: "Yes, a Basic Plan can be upgraded to a Pro Plan later on; we'll discuss the scope and any additional cost based on what's already built." },
-	{ q: 'Is monthly maintenance required?', a: 'No. First-year hosting is already included in both plans; monthly maintenance is optional for those who prefer not to worry about backups, updates and content changes.' },
+	{ q: 'Is monthly maintenance required?', a: 'No. First-year managed hosting is already included in both plans; monthly maintenance is optional for those who prefer not to worry about backups, updates and content changes.' },
+	{ q: 'How much does each plan cost?', a: `The ${plansEn[0].name} starts ${plansEn[0].price.toLowerCase()}, the ${plansEn[1].name} starts ${plansEn[1].price.toLowerCase()}, and ${maintenanceEn.name.toLowerCase()} starts ${maintenanceEn.price.toLowerCase()}. The final price depends on the scope, content, features and integrations required.` },
 	{ q: 'How does payment work?', a: "Each project is quoted individually based on its scope, features and timeline. Once the proposal is approved, a deposit is requested to reserve the project and begin work. The remaining balance is paid according to the milestones set out in the quote. Available payment methods may include bank transfer and electronic payment." },
 ];
 ---
@@ -48,6 +49,7 @@ const faqs = [
 					<PricingCard
 						name={plan.name}
 						subtitle={plan.subtitle}
+						price={plan.price}
 						forWhom={plan.forWhom}
 						features={plan.features}
 						delivery={plan.delivery}
@@ -60,8 +62,13 @@ const faqs = [
 			}
 		</div>
 
+		<p class="mx-auto mt-6 max-w-4xl text-center text-sm text-slate-500">
+			The client provides the text, images, logo, and business details needed for the project.
+		</p>
+
 		<article class="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-8">
 			<h2 class="text-xl font-bold text-slate-900">{maintenanceEn.name}</h2>
+			<p class="mt-1 text-xl font-extrabold text-slate-900">{maintenanceEn.price}</p>
 			<p class="mt-1 text-sm text-slate-500">{maintenanceEn.forWhom}</p>
 			<ul class="mt-5 grid gap-3 sm:grid-cols-2">
 				{
@@ -79,6 +86,10 @@ const faqs = [
 				Ask about maintenance
 			</a>
 		</article>
+
+		<p class="mx-auto mt-8 max-w-4xl text-center text-sm text-slate-500">
+			The final price depends on the project scope, amount of content, required features, and integrations. Projects with special requirements are quoted separately.
+		</p>
 	</section>
 
 	<section class="border-t border-slate-100 bg-slate-50">

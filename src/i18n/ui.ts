@@ -42,7 +42,7 @@ export const ui = {
 		'nav.blog': 'Blog',
 		'nav.menu': 'Menú',
 		'footer.rights': 'Todos los derechos reservados.',
-		'footer.tagline': 'Sitios web rápidos, seguros y a la medida para pymes y emprendedores en Chile.',
+		'footer.tagline': 'Sitios web rápidos, seguros y adaptados a las necesidades de pymes y emprendedores en Chile.',
 		'footer.servicesHeading': 'Servicios',
 		'footer.companyHeading': 'Empresa',
 		'footer.contactHeading': 'Contacto',

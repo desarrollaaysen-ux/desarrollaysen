@@ -151,6 +151,17 @@ summary:focus-visible {
 	font-size: 0.9em;
 }
 
+/* Justificado editorial solo para el cuerpo de los artículos del blog
+   (clase adicional aplicada junto a .prose en [slug].astro ES/EN).
+   No se aplica a .prose directamente porque esa clase también se usa en
+   la página de Política de Privacidad, que no debe justificarse. */
+.article-content p {
+	text-align: justify;
+	text-justify: inter-word;
+	hyphens: auto;
+	overflow-wrap: break-word;
+}
+
 /* Acordeón de FAQ (FAQItem.astro): flecha que rota al abrir <details>. */
 .faq-item[open] > summary .faq-item__chevron {
 	transform: rotate(180deg);

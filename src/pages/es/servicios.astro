@@ -11,9 +11,10 @@ const nav = routes.es;
 const checkIcon = 'm4.5 12.75 6 6 9-13.5';
 
 const faqs = [
-	{ q: '¿Qué plan me conviene?', a: 'Si estás partiendo y necesitas algo simple, el Plan Básico es suficiente. Si quieres mostrar varios servicios, tener formulario de contacto y algo de SEO, el Plan Pro es la mejor opción.' },
+	{ q: '¿Qué plan me conviene?', a: 'Si estás comenzando y necesitas algo simple, el Plan Básico es suficiente. Si quieres mostrar varios servicios, tener formulario de contacto y algo de SEO, el Plan Pro es la mejor opción.' },
 	{ q: '¿Puedo cambiar de plan más adelante?', a: 'Sí, se puede ampliar un Plan Básico a Plan Pro más adelante; conversamos el alcance y el costo adicional según lo ya construido.' },
-	{ q: '¿La mantención mensual es obligatoria?', a: 'No. El hosting del primer año ya está incluido en ambos planes; la mantención mensual es opcional para quienes prefieren no preocuparse de backups, actualizaciones y cambios de contenido.' },
+	{ q: '¿El mantenimiento mensual es obligatorio?', a: 'No. El hosting administrado del primer año ya está incluido en ambos planes; el mantenimiento mensual es opcional para quienes prefieren no preocuparse de respaldos, actualizaciones y cambios de contenido.' },
+	{ q: '¿Cuánto cuesta cada plan?', a: `El ${plansEs[0].name} comienza ${plansEs[0].price.toLowerCase()}, el ${plansEs[1].name} ${plansEs[1].price.toLowerCase()} y el ${maintenanceEs.name.toLowerCase()} ${maintenanceEs.price.toLowerCase()}. El valor final depende del alcance, el contenido, las funcionalidades y las integraciones requeridas.` },
 	{ q: '¿Cómo se realiza el pago?', a: 'Cada proyecto se cotiza de manera personalizada de acuerdo con su alcance, funcionalidades y plazo. Una vez aprobada la propuesta, se solicita un anticipo para reservar el proyecto e iniciar el trabajo. El saldo restante se paga según las etapas establecidas en la cotización. Los medios de pago disponibles pueden incluir transferencia bancaria y pago electrónico.' },
 ];
 ---
@@ -22,7 +23,7 @@ const faqs = [
 	lang="es"
 	route="services"
 	title="Planes de Desarrollo Web para Pymes"
-	description="Planes de desarrollo web para pymes en Chile: sitio básico, sitio profesional y mantención mensual."
+	description="Planes de desarrollo web para pymes en Chile: sitio básico, sitio profesional y mantenimiento mensual."
 >
 	<section class="relative overflow-hidden">
 		<div class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,var(--color-brand-100),transparent_60%)]"></div>
@@ -48,6 +49,7 @@ const faqs = [
 					<PricingCard
 						name={plan.name}
 						subtitle={plan.subtitle}
+						price={plan.price}
 						forWhom={plan.forWhom}
 						features={plan.features}
 						delivery={plan.delivery}
@@ -60,8 +62,13 @@ const faqs = [
 			}
 		</div>
 
+		<p class="mx-auto mt-6 max-w-4xl text-center text-sm text-slate-500">
+			El cliente proporciona los textos, imágenes, logotipo y datos comerciales necesarios para el proyecto.
+		</p>
+
 		<article class="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-8">
 			<h2 class="text-xl font-bold text-slate-900">{maintenanceEs.name}</h2>
+			<p class="mt-1 text-xl font-extrabold text-slate-900">{maintenanceEs.price}</p>
 			<p class="mt-1 text-sm text-slate-500">{maintenanceEs.forWhom}</p>
 			<ul class="mt-5 grid gap-3 sm:grid-cols-2">
 				{
@@ -76,9 +83,13 @@ const faqs = [
 				}
 			</ul>
 			<a href={nav.contact} class="mt-6 inline-flex items-center justify-center rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-brand-300 hover:bg-white hover:text-brand-700">
-				Consultar por mantención
+				Consultar por mantenimiento
 			</a>
 		</article>
+
+		<p class="mx-auto mt-8 max-w-4xl text-center text-sm text-slate-500">
+			El valor final depende del alcance, la cantidad de contenido, las funcionalidades y las integraciones necesarias. Los proyectos con requisitos especiales se cotizan de manera personalizada.
+		</p>
 	</section>
 
 	<section class="border-t border-slate-100 bg-slate-50">

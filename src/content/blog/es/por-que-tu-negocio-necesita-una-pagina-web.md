@@ -18,9 +18,9 @@ Una página web es tuya. El dominio, el diseño y el contenido están bajo tu co
 
 Cuando un potencial cliente busca tu negocio y solo encuentra un perfil de redes sociales, es fácil que dude: ¿es un negocio real?, ¿sigue funcionando?, ¿cómo los contacto de forma directa? Una página web ordenada, con tus servicios, tu forma de contacto y buena velocidad de carga, resuelve esas dudas en segundos.
 
-## Facilita que te encuentren en Google
+## Facilita que encuentren tu negocio en Google
 
-Las publicaciones en redes sociales rara vez aparecen en buscadores. Una página web, en cambio, sí puede indexarse en Google, lo que te da una vía adicional —y más duradera en el tiempo— para que nuevos clientes te encuentren cuando buscan lo que ofreces.
+Las publicaciones en redes sociales rara vez aparecen en buscadores. Una página web, en cambio, sí puede indexarse en Google, lo que te da una vía adicional —y más duradera en el tiempo— para que nuevos clientes encuentren tu negocio cuando buscan lo que ofreces.
 
 ## Te da un espacio para mostrar todo lo que haces
 

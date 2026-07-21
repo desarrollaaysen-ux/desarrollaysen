@@ -68,7 +68,7 @@ const benefits = [
 ];
 
 const faqs = [
-	{ q: 'How much does a website cost?', a: 'It depends on the scope, design and features of each project. You can review our plans in the Services section; final terms are set in a custom quote.' },
+	{ q: 'How much does a website cost?', a: `The ${plansEn[0].name} starts ${plansEn[0].price.toLowerCase()}, the ${plansEn[1].name} starts ${plansEn[1].price.toLowerCase()}, and ${maintenanceEn.name.toLowerCase()} starts ${maintenanceEn.price.toLowerCase()}. The final price depends on the scope, content, features and integrations required.` },
 	{ q: 'How long does development take?', a: 'It depends on the plan: the Basic Plan is delivered in 5-7 business days, and the Pro Plan in 10-15 business days after we define the content.' },
 	{ q: 'What do I need to get started?', a: 'Mainly your logo (if you have one), text or general ideas of what you want to communicate, photos if available, and your contact details.' },
 	{ q: 'Will it work on phones?', a: 'Yes, every site we build is responsive: it adapts to phone, tablet and desktop.' },
@@ -206,6 +206,7 @@ const faqs = [
 					<PricingCard
 						name={plan.name}
 						subtitle={plan.subtitle}
+						price={plan.price}
 						forWhom={plan.forWhom}
 						features={plan.features}
 						delivery={plan.delivery}
@@ -217,8 +218,11 @@ const faqs = [
 				))}
 			</div>
 			<p class="mx-auto mt-8 max-w-4xl rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center text-sm text-slate-600">
-				<strong class="text-slate-900">{maintenanceEn.name}:</strong> {maintenanceEn.forWhom}
+				<strong class="text-slate-900">{maintenanceEn.name} ({maintenanceEn.price}):</strong> {maintenanceEn.forWhom}
 				<a href={nav.services} class="ml-1 font-semibold text-brand-600 hover:text-brand-700">View details →</a>
+			</p>
+			<p class="mx-auto mt-4 max-w-4xl text-center text-sm text-slate-500">
+				The final price depends on the project scope, amount of content, required features, and integrations. Projects with special requirements are quoted separately.
 			</p>
 		</div>
 	</section>

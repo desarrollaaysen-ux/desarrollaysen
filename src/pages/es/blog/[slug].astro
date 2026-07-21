@@ -46,7 +46,7 @@ const related = allPosts
 		<time datetime={post.data.pubDate.toISOString()} class="mt-3 block text-sm font-medium text-slate-400">
 			{post.data.pubDate.toLocaleDateString('es-CL', { day: 'numeric', month: 'long', year: 'numeric' })}
 		</time>
-		<div class="prose mt-10">
+		<div class="prose article-content mt-10">
 			<Content />
 		</div>
 	</article>

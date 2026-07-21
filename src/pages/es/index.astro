@@ -25,7 +25,7 @@ const services = [
 	{
 		icon: 'M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 4h14',
 		title: 'Plan Básico',
-		text: 'Un sitio de una página, responsive, con lo esencial para que te encuentren.',
+		text: 'Un sitio de una página, adaptable a celulares, tabletas y computadoras, con lo esencial para que puedan encontrar tu negocio.',
 		benefit: 'Presencia online en menos de una semana.',
 		ctaLabel: 'Ver detalles',
 		ctaHref: nav.services,
@@ -40,21 +40,21 @@ const services = [
 	},
 	{
 		icon: 'M4.5 12a7.5 7.5 0 0 1 13-5.13M19.5 12a7.5 7.5 0 0 1-13 5.13M4 4v5h5M20 20v-5h-5',
-		title: 'Mantención Mensual',
-		text: 'Hosting, backups y actualizaciones de seguridad administradas por nosotros.',
-		benefit: 'Tu sitio siempre al día, sin que tengas que pensar en eso.',
+		title: 'Mantenimiento Mensual',
+		text: 'Hosting, respaldos y actualizaciones de seguridad administradas por nosotros.',
+		benefit: 'Tu sitio siempre al día, sin que tengas que preocuparte por la parte técnica.',
 		ctaLabel: 'Ver detalles',
 		ctaHref: nav.services,
 	},
 ];
 
 const process = [
-	{ title: 'Conversación inicial', text: 'Conversamos sobre tu negocio, qué necesitas y qué esperas del sitio.' },
+	{ title: 'Conversación inicial', text: 'Conversamos sobre tu negocio, qué necesita y qué objetivos debe cumplir el sitio.' },
 	{ title: 'Definición de necesidades', text: 'Definimos alcance, contenidos y el plan que mejor se ajusta a ti.' },
 	{ title: 'Diseño y desarrollo', text: 'Construimos tu sitio con un diseño moderno y buenas prácticas técnicas.' },
 	{ title: 'Revisión', text: 'Revisamos juntos el resultado y ajustamos lo que sea necesario.' },
-	{ title: 'Publicación', text: 'Tu sitio queda publicado, con HTTPS y hosting del primer año incluido.' },
-	{ title: 'Soporte', text: 'Quedamos disponibles para dudas y, si quieres, seguimos con la mantención mensual.' },
+	{ title: 'Publicación', text: 'Tu sitio queda publicado, con HTTPS y hosting administrado durante el primer año.' },
+	{ title: 'Soporte', text: 'Continuamos disponibles para dudas y, si lo necesitas, seguimos con el mantenimiento mensual.' },
 ];
 
 const benefits = [
@@ -62,21 +62,21 @@ const benefits = [
 	'Muestra tus servicios de forma clara y ordenada',
 	'Te permite recibir consultas directamente',
 	'Mejora tu imagen profesional frente a la competencia',
-	'Ayuda a que te encuentren en Google',
+	'Ayuda a que puedan encontrar tu negocio en Google',
 	'Facilita el contacto por WhatsApp, email o formulario',
 	'Te da un canal propio para captar nuevos clientes',
 ];
 
 const faqs = [
-	{ q: '¿Cuánto cuesta una página web?', a: 'El valor depende del alcance, el diseño y las funcionalidades de cada proyecto. Puedes revisar nuestros planes en la sección de Servicios; las condiciones finales se definen en una cotización a medida.' },
+	{ q: '¿Cuánto cuesta una página web?', a: `El ${plansEs[0].name} comienza ${plansEs[0].price.toLowerCase()}, el ${plansEs[1].name} ${plansEs[1].price.toLowerCase()} y el ${maintenanceEs.name.toLowerCase()} ${maintenanceEs.price.toLowerCase()}. El valor final depende del alcance, el contenido, las funcionalidades y las integraciones requeridas.` },
 	{ q: '¿Cuánto demora el desarrollo?', a: 'Depende del plan: el Plan Básico se entrega en 5-7 días hábiles y el Plan Pro en 10-15 días hábiles desde que definimos los contenidos.' },
 	{ q: '¿Qué necesito para comenzar?', a: 'Principalmente tu logo (si tienes), textos o ideas generales de lo que quieres comunicar, fotos si las tienes, y tus datos de contacto.' },
 	{ q: '¿La página funcionará en celulares?', a: 'Sí, todos nuestros sitios son responsive: se adaptan a celular, tablet y computador.' },
 	{ q: '¿Puedo conectar WhatsApp?', a: 'Sí, todos los planes incluyen integración con WhatsApp para que tus clientes puedan escribirte directamente desde el sitio.' },
 	{ q: '¿El sitio aparecerá en Google?', a: 'El Plan Pro incluye SEO básico para ayudar a que tu sitio sea indexable y esté bien estructurado para buscadores. No es posible garantizar posiciones específicas en los resultados, pero se construye con buenas prácticas de SEO desde el inicio.' },
-	{ q: '¿Incluyen dominio y hosting?', a: 'El primer año de hosting está incluido en ambos planes. El dominio debes tenerlo o adquirirlo aparte; si no tienes uno, te podemos orientar para elegir y configurarlo.' },
-	{ q: '¿Puedo solicitar cambios?', a: 'Sí. Durante el desarrollo hay una etapa de revisión, y si más adelante necesitas cambios periódicos, el Plan de Mantención Mensual incluye hasta 2 cambios de contenido al mes.' },
-	{ q: '¿Ofrecen mantención?', a: 'Sí, contamos con un Plan de Mantención Mensual: hosting y dominio administrados, backups periódicos, actualizaciones de seguridad y monitoreo de disponibilidad.' },
+	{ q: '¿Incluyen dominio y hosting?', a: 'El hosting administrado del primer año está incluido en ambos planes. El dominio es la dirección web de tu negocio y debes tenerlo o adquirirlo aparte; si no tienes uno, podemos orientarte para elegir y configurarlo. El hosting es la infraestructura donde se publica tu sitio, y es un concepto distinto del mantenimiento mensual.' },
+	{ q: '¿Puedo solicitar cambios?', a: 'Sí. Durante el desarrollo hay una etapa de revisión, y si más adelante necesitas cambios periódicos, el Plan de Mantenimiento Mensual incluye hasta 2 cambios de contenido al mes.' },
+	{ q: '¿Ofrecen mantenimiento?', a: 'Sí, contamos con un Plan de Mantenimiento Mensual: administración de hosting y dominio, respaldos periódicos, actualizaciones de seguridad y monitoreo de disponibilidad.' },
 	{ q: '¿Cómo se realiza el pago?', a: 'Cada proyecto se cotiza de manera personalizada de acuerdo con su alcance, funcionalidades y plazo. Una vez aprobada la propuesta, se solicita un anticipo para reservar el proyecto e iniciar el trabajo. El saldo restante se paga según las etapas establecidas en la cotización. Los medios de pago disponibles pueden incluir transferencia bancaria y pago electrónico.' },
 ];
 ---
@@ -157,7 +157,7 @@ const faqs = [
 		<SectionHeader
 			eyebrow="Servicios"
 			title="Elige el plan que se ajusta a tu negocio"
-			subtitle="Desde una presencia simple hasta un sitio más completo, con mantención para no preocuparte después."
+			subtitle="Desde una presencia simple hasta un sitio más completo, con mantenimiento para no preocuparte después."
 		/>
 		<div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 			{services.map((service) => <ServiceCard {...service} />)}
@@ -206,6 +206,7 @@ const faqs = [
 					<PricingCard
 						name={plan.name}
 						subtitle={plan.subtitle}
+						price={plan.price}
 						forWhom={plan.forWhom}
 						features={plan.features}
 						delivery={plan.delivery}
@@ -217,8 +218,11 @@ const faqs = [
 				))}
 			</div>
 			<p class="mx-auto mt-8 max-w-4xl rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center text-sm text-slate-600">
-				<strong class="text-slate-900">{maintenanceEs.name}:</strong> {maintenanceEs.forWhom}
+				<strong class="text-slate-900">{maintenanceEs.name} ({maintenanceEs.price}):</strong> {maintenanceEs.forWhom}
 				<a href={nav.services} class="ml-1 font-semibold text-brand-600 hover:text-brand-700">Ver detalles →</a>
+			</p>
+			<p class="mx-auto mt-4 max-w-4xl text-center text-sm text-slate-500">
+				El valor final depende del alcance, la cantidad de contenido, las funcionalidades y las integraciones necesarias. Los proyectos con requisitos especiales se cotizan de manera personalizada.
 			</p>
 		</div>
 	</section>
