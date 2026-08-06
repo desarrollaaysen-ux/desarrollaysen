@@ -5,17 +5,17 @@ import SectionHeader from '../../components/ui/SectionHeader.astro';
 import PricingCard from '../../components/ui/PricingCard.astro';
 import FAQItem from '../../components/ui/FAQItem.astro';
 import CTASection from '../../components/ui/CTASection.astro';
-import { plansEs, maintenanceEs } from '../../data/plans';
+import { plansEs, hostingEs, maintenanceEs, paymentTermsEs } from '../../data/plans';
 
 const nav = routes.es;
 const checkIcon = 'm4.5 12.75 6 6 9-13.5';
 
 const faqs = [
-	{ q: '¿Qué plan me conviene?', a: 'Si estás comenzando y necesitas algo simple, el Plan Básico es suficiente. Si quieres mostrar varios servicios, tener formulario de contacto y algo de SEO, el Plan Pro es la mejor opción.' },
-	{ q: '¿Puedo cambiar de plan más adelante?', a: 'Sí, se puede ampliar un Plan Básico a Plan Pro más adelante; conversamos el alcance y el costo adicional según lo ya construido.' },
-	{ q: '¿El mantenimiento mensual es obligatorio?', a: 'No. El hosting administrado del primer año ya está incluido en ambos planes; el mantenimiento mensual es opcional para quienes prefieren no preocuparse de respaldos, actualizaciones y cambios de contenido.' },
-	{ q: '¿Cuánto cuesta cada plan?', a: `El ${plansEs[0].name} comienza ${plansEs[0].price.toLowerCase()}, el ${plansEs[1].name} ${plansEs[1].price.toLowerCase()} y el ${maintenanceEs.name.toLowerCase()} ${maintenanceEs.price.toLowerCase()}. El valor final depende del alcance, el contenido, las funcionalidades y las integraciones requeridas.` },
-	{ q: '¿Cómo se realiza el pago?', a: 'Cada proyecto se cotiza de manera personalizada de acuerdo con su alcance, funcionalidades y plazo. Una vez aprobada la propuesta, se solicita un anticipo para reservar el proyecto e iniciar el trabajo. El saldo restante se paga según las etapas establecidas en la cotización. Los medios de pago disponibles pueden incluir transferencia bancaria y pago electrónico.' },
+	{ q: '¿Qué plan me conviene?', a: 'Si estás comenzando y necesitas algo simple, el Plan Esencial es suficiente. Si quieres mostrar varios servicios, tener formulario de contacto y SEO local, el Plan Completo es la mejor opción. Si necesitas reservas online, versión bilingüe u otras funciones adicionales, revisa el Plan Avanzado.' },
+	{ q: '¿Puedo cambiar de plan más adelante?', a: 'Sí, se puede ampliar un plan a otro superior más adelante; conversamos el alcance y el costo adicional según lo ya construido.' },
+	{ q: '¿El mantenimiento mensual es obligatorio?', a: 'No. El dominio y el hosting se pagan como costo anual aparte, y el mantenimiento mensual es opcional, pensado para quienes prefieren no ocuparse de respaldos, actualizaciones y cambios de contenido.' },
+	{ q: '¿Cuánto cuesta cada plan?', a: `El ${plansEs[0].name} comienza ${plansEs[0].price.toLowerCase()}, el ${plansEs[1].name} ${plansEs[1].price.toLowerCase()} y el ${plansEs[2].name} ${plansEs[2].price.toLowerCase()}, como pago único. A esto se suma ${hostingEs.name.toLowerCase()} (${hostingEs.price.toLowerCase()}) y, de forma opcional, ${maintenanceEs.name.toLowerCase()} (${maintenanceEs.price.toLowerCase()}). El valor final depende del alcance, el contenido, las funcionalidades y las integraciones requeridas.` },
+	{ q: '¿Cómo se realiza el pago?', a: 'El desarrollo del sitio se paga con un 50% de anticipo para reservar tu proyecto y comenzar a trabajar, y el 50% restante al finalizar y publicar el sitio. El plazo de entrega se cuenta desde la confirmación y el pago del anticipo. El dominio y hosting se pagan aparte, como costo anual, y el mantenimiento mensual —si lo contratas— se factura mes a mes.' },
 ];
 ---
 
@@ -23,7 +23,7 @@ const faqs = [
 	lang="es"
 	route="services"
 	title="Planes de Desarrollo Web para Pymes"
-	description="Planes de desarrollo web para pymes en Chile: sitio básico, sitio profesional y mantenimiento mensual."
+	description="Planes de desarrollo web para pymes en Chile: sitio esencial, sitio completo, sitio avanzado y mantenimiento mensual opcional."
 >
 	<section class="relative overflow-hidden">
 		<div class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,var(--color-brand-100),transparent_60%)]"></div>
@@ -43,13 +43,14 @@ const faqs = [
 	</section>
 
 	<section class="mx-auto max-w-6xl px-6 pb-8">
-		<div class="grid gap-8 sm:grid-cols-2">
+		<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 			{
 				plansEs.map((plan) => (
 					<PricingCard
 						name={plan.name}
 						subtitle={plan.subtitle}
 						price={plan.price}
+						priceNote={plan.priceNote}
 						forWhom={plan.forWhom}
 						features={plan.features}
 						delivery={plan.delivery}
@@ -67,6 +68,17 @@ const faqs = [
 		</p>
 
 		<article class="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-8">
+			<h2 class="text-xl font-bold text-slate-900">{hostingEs.name}</h2>
+			<p class="mt-1 text-xl font-extrabold text-slate-900">{hostingEs.price}</p>
+			<p class="mt-3 max-w-3xl text-sm text-slate-600">{hostingEs.description}</p>
+		</article>
+
+		<article class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-8">
+			<h2 class="text-xl font-bold text-slate-900">Forma de pago</h2>
+			<p class="mt-3 max-w-3xl text-sm text-slate-600">{paymentTermsEs}</p>
+		</article>
+
+		<article class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-8">
 			<h2 class="text-xl font-bold text-slate-900">{maintenanceEs.name}</h2>
 			<p class="mt-1 text-xl font-extrabold text-slate-900">{maintenanceEs.price}</p>
 			<p class="mt-1 text-sm text-slate-500">{maintenanceEs.forWhom}</p>

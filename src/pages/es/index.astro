@@ -8,7 +8,7 @@ import PricingCard from '../../components/ui/PricingCard.astro';
 import ProcessStep from '../../components/ui/ProcessStep.astro';
 import FAQItem from '../../components/ui/FAQItem.astro';
 import CTASection from '../../components/ui/CTASection.astro';
-import { plansEs, maintenanceEs } from '../../data/plans';
+import { plansEs, hostingEs, maintenanceEs, paymentTermsEs } from '../../data/plans';
 
 const nav = routes.es;
 
@@ -24,16 +24,16 @@ const trust = [
 const services = [
 	{
 		icon: 'M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm0 4h14',
-		title: 'Plan Básico',
-		text: 'Un sitio de una página, adaptable a celulares, tabletas y computadoras, con lo esencial para que puedan encontrar tu negocio.',
+		title: 'Plan Esencial',
+		text: 'Un sitio de una página, con lo esencial para que tu negocio tenga presencia online desde el primer día.',
 		benefit: 'Presencia online en menos de una semana.',
 		ctaLabel: 'Ver detalles',
 		ctaHref: nav.services,
 	},
 	{
 		icon: 'M12 3 2 8l10 5 10-5-10-5ZM2 12l10 5 10-5M2 16l10 5 10-5',
-		title: 'Plan Pro',
-		text: 'Hasta 5 páginas, formulario de contacto y SEO básico para mostrar todo tu negocio.',
+		title: 'Plan Completo y Avanzado',
+		text: 'Varias páginas, formulario de contacto, SEO local y funciones adicionales según tu negocio.',
 		benefit: 'Más páginas, más visibilidad, más consultas.',
 		ctaLabel: 'Ver detalles',
 		ctaHref: nav.services,
@@ -41,7 +41,7 @@ const services = [
 	{
 		icon: 'M4.5 12a7.5 7.5 0 0 1 13-5.13M19.5 12a7.5 7.5 0 0 1-13 5.13M4 4v5h5M20 20v-5h-5',
 		title: 'Mantenimiento Mensual',
-		text: 'Hosting, respaldos y actualizaciones de seguridad administradas por nosotros.',
+		text: 'Hosting, respaldos y actualizaciones de seguridad administradas por nosotros, de forma opcional.',
 		benefit: 'Tu sitio siempre al día, sin que tengas que preocuparte por la parte técnica.',
 		ctaLabel: 'Ver detalles',
 		ctaHref: nav.services,
@@ -53,7 +53,7 @@ const process = [
 	{ title: 'Definición de necesidades', text: 'Definimos alcance, contenidos y el plan que mejor se ajusta a ti.' },
 	{ title: 'Diseño y desarrollo', text: 'Construimos tu sitio con un diseño moderno y buenas prácticas técnicas.' },
 	{ title: 'Revisión', text: 'Revisamos juntos el resultado y ajustamos lo que sea necesario.' },
-	{ title: 'Publicación', text: 'Tu sitio queda publicado, con HTTPS y hosting administrado durante el primer año.' },
+	{ title: 'Publicación', text: 'Tu sitio queda publicado, con HTTPS incluido y el dominio y hosting configurados a tu nombre.' },
 	{ title: 'Soporte', text: 'Continuamos disponibles para dudas y, si lo necesitas, seguimos con el mantenimiento mensual.' },
 ];
 
@@ -68,16 +68,16 @@ const benefits = [
 ];
 
 const faqs = [
-	{ q: '¿Cuánto cuesta una página web?', a: `El ${plansEs[0].name} comienza ${plansEs[0].price.toLowerCase()}, el ${plansEs[1].name} ${plansEs[1].price.toLowerCase()} y el ${maintenanceEs.name.toLowerCase()} ${maintenanceEs.price.toLowerCase()}. El valor final depende del alcance, el contenido, las funcionalidades y las integraciones requeridas.` },
-	{ q: '¿Cuánto demora el desarrollo?', a: 'Depende del plan: el Plan Básico se entrega en 5-7 días hábiles y el Plan Pro en 10-15 días hábiles desde que definimos los contenidos.' },
+	{ q: '¿Cuánto cuesta una página web?', a: `El ${plansEs[0].name} comienza ${plansEs[0].price.toLowerCase()}, el ${plansEs[1].name} ${plansEs[1].price.toLowerCase()} y el ${plansEs[2].name} ${plansEs[2].price.toLowerCase()}, como pago único por el desarrollo. A esto se suma ${hostingEs.name.toLowerCase()} (${hostingEs.price.toLowerCase()}) y, de forma opcional, ${maintenanceEs.name.toLowerCase()} (${maintenanceEs.price.toLowerCase()}). El valor final depende del alcance, el contenido, las funcionalidades y las integraciones requeridas.` },
+	{ q: '¿Cuánto demora el desarrollo?', a: 'Depende del plan: el Plan Esencial se entrega en 5-7 días hábiles, el Plan Completo en 10-15 días hábiles, y el Plan Avanzado según el alcance definido, siempre contado desde que confirmamos el proyecto y definimos los contenidos.' },
 	{ q: '¿Qué necesito para comenzar?', a: 'Principalmente tu logo (si tienes), textos o ideas generales de lo que quieres comunicar, fotos si las tienes, y tus datos de contacto.' },
 	{ q: '¿La página funcionará en celulares?', a: 'Sí, todos nuestros sitios son responsive: se adaptan a celular, tablet y computador.' },
 	{ q: '¿Puedo conectar WhatsApp?', a: 'Sí, todos los planes incluyen integración con WhatsApp para que tus clientes puedan escribirte directamente desde el sitio.' },
-	{ q: '¿El sitio aparecerá en Google?', a: 'El Plan Pro incluye SEO básico para ayudar a que tu sitio sea indexable y esté bien estructurado para buscadores. No es posible garantizar posiciones específicas en los resultados, pero se construye con buenas prácticas de SEO desde el inicio.' },
-	{ q: '¿Incluyen dominio y hosting?', a: 'El hosting administrado del primer año está incluido en ambos planes. El dominio es la dirección web de tu negocio y debes tenerlo o adquirirlo aparte; si no tienes uno, podemos orientarte para elegir y configurarlo. El hosting es la infraestructura donde se publica tu sitio, y es un concepto distinto del mantenimiento mensual.' },
+	{ q: '¿El sitio aparecerá en Google?', a: 'El Plan Completo y el Plan Avanzado incluyen SEO local reforzado para ayudar a que tu sitio sea indexable y esté bien estructurado para buscadores. No es posible garantizar posiciones específicas en los resultados, pero se construye con buenas prácticas de SEO desde el inicio.' },
+	{ q: '¿Incluyen dominio y hosting?', a: 'El dominio, el hosting y el certificado SSL son un costo anual aparte, a precio de proveedor y sin recargo, y quedan registrados a tu nombre. El primer año se suma al pago inicial del proyecto; desde el segundo año solo renuevas ese valor. Es un concepto distinto del mantenimiento mensual, que es opcional.' },
 	{ q: '¿Puedo solicitar cambios?', a: 'Sí. Durante el desarrollo hay una etapa de revisión, y si más adelante necesitas cambios periódicos, el Plan de Mantenimiento Mensual incluye hasta 2 cambios de contenido al mes.' },
 	{ q: '¿Ofrecen mantenimiento?', a: 'Sí, contamos con un Plan de Mantenimiento Mensual: administración de hosting y dominio, respaldos periódicos, actualizaciones de seguridad y monitoreo de disponibilidad.' },
-	{ q: '¿Cómo se realiza el pago?', a: 'Cada proyecto se cotiza de manera personalizada de acuerdo con su alcance, funcionalidades y plazo. Una vez aprobada la propuesta, se solicita un anticipo para reservar el proyecto e iniciar el trabajo. El saldo restante se paga según las etapas establecidas en la cotización. Los medios de pago disponibles pueden incluir transferencia bancaria y pago electrónico.' },
+	{ q: '¿Cómo se realiza el pago?', a: 'El desarrollo del sitio se paga con un 50% de anticipo para reservar tu proyecto y comenzar a trabajar, y el 50% restante al finalizar y publicar el sitio. El plazo de entrega se cuenta desde la confirmación y el pago del anticipo. El dominio y hosting se pagan aparte, como costo anual, y el mantenimiento mensual —si lo contratas— se factura mes a mes.' },
 ];
 ---
 
@@ -99,9 +99,10 @@ const faqs = [
 					Una página web profesional para tu negocio, lista en días
 				</h1>
 				<p class="mt-6 max-w-xl text-lg text-slate-600">
-					Diseño, desarrollo y hosting del primer año incluido. Sitios rápidos,
-					responsive y construidos con buenas prácticas, para que tu pyme
-					tenga presencia online sin complicaciones.
+					Diseño y desarrollo con precios claros: pago único por el sitio,
+					dominio y hosting a precio de proveedor, y mantenimiento mensual
+					opcional. Sitios rápidos, responsive y construidos con buenas
+					prácticas, para que tu pyme tenga presencia online sin sorpresas.
 				</p>
 				<div class="mt-10 flex flex-wrap gap-4">
 					<a href={nav.contact} class="rounded-full bg-brand-600 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-brand-600/20 transition hover:bg-brand-700 sm:text-base">
@@ -201,12 +202,13 @@ const faqs = [
 	<section class="border-t border-slate-100">
 		<div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
 			<SectionHeader eyebrow="Planes" title="Precios claros, sin letra chica" />
-			<div class="mx-auto mt-12 grid max-w-4xl gap-8 sm:grid-cols-2">
+			<div class="mx-auto mt-12 grid max-w-6xl gap-8 sm:grid-cols-2 lg:grid-cols-3">
 				{plansEs.map((plan) => (
 					<PricingCard
 						name={plan.name}
 						subtitle={plan.subtitle}
 						price={plan.price}
+						priceNote={plan.priceNote}
 						forWhom={plan.forWhom}
 						features={plan.features}
 						delivery={plan.delivery}
@@ -218,6 +220,12 @@ const faqs = [
 				))}
 			</div>
 			<p class="mx-auto mt-8 max-w-4xl rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center text-sm text-slate-600">
+				<strong class="text-slate-900">{hostingEs.name} ({hostingEs.price}):</strong> {hostingEs.description}
+			</p>
+			<p class="mx-auto mt-4 max-w-4xl rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center text-sm text-slate-600">
+				{paymentTermsEs}
+			</p>
+			<p class="mx-auto mt-4 max-w-4xl rounded-2xl border border-slate-200 bg-slate-50 p-6 text-center text-sm text-slate-600">
 				<strong class="text-slate-900">{maintenanceEs.name} ({maintenanceEs.price}):</strong> {maintenanceEs.forWhom}
 				<a href={nav.services} class="ml-1 font-semibold text-brand-600 hover:text-brand-700">Ver detalles →</a>
 			</p>

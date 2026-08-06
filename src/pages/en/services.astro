@@ -5,17 +5,17 @@ import SectionHeader from '../../components/ui/SectionHeader.astro';
 import PricingCard from '../../components/ui/PricingCard.astro';
 import FAQItem from '../../components/ui/FAQItem.astro';
 import CTASection from '../../components/ui/CTASection.astro';
-import { plansEn, maintenanceEn } from '../../data/plans';
+import { plansEn, hostingEn, maintenanceEn, paymentTermsEn } from '../../data/plans';
 
 const nav = routes.en;
 const checkIcon = 'm4.5 12.75 6 6 9-13.5';
 
 const faqs = [
-	{ q: 'Which plan is right for me?', a: "If you're just starting out and need something simple, the Basic Plan is enough. If you want to showcase several services, have a contact form and some SEO, the Pro Plan is the better fit." },
-	{ q: 'Can I switch plans later?', a: "Yes, a Basic Plan can be upgraded to a Pro Plan later on; we'll discuss the scope and any additional cost based on what's already built." },
-	{ q: 'Is monthly maintenance required?', a: 'No. First-year managed hosting is already included in both plans; monthly maintenance is optional for those who prefer not to worry about backups, updates and content changes.' },
-	{ q: 'How much does each plan cost?', a: `The ${plansEn[0].name} starts ${plansEn[0].price.toLowerCase()}, the ${plansEn[1].name} starts ${plansEn[1].price.toLowerCase()}, and ${maintenanceEn.name.toLowerCase()} starts ${maintenanceEn.price.toLowerCase()}. The final price depends on the scope, content, features and integrations required.` },
-	{ q: 'How does payment work?', a: "Each project is quoted individually based on its scope, features and timeline. Once the proposal is approved, a deposit is requested to reserve the project and begin work. The remaining balance is paid according to the milestones set out in the quote. Available payment methods may include bank transfer and electronic payment." },
+	{ q: 'Which plan is right for me?', a: "If you're just starting out and need something simple, the Essential Plan is enough. If you want to showcase several services, have a contact form and local SEO, the Complete Plan is the better fit. If you need online booking, a bilingual version or other extra features, check out the Advanced Plan." },
+	{ q: 'Can I switch plans later?', a: "Yes, a plan can be upgraded to a higher one later on; we'll discuss the scope and any additional cost based on what's already built." },
+	{ q: 'Is monthly maintenance required?', a: 'No. Domain and hosting are billed separately as an annual cost, and monthly maintenance is optional, for those who prefer not to worry about backups, updates and content changes.' },
+	{ q: 'How much does each plan cost?', a: `The ${plansEn[0].name} starts ${plansEn[0].price.toLowerCase()}, the ${plansEn[1].name} starts ${plansEn[1].price.toLowerCase()}, and the ${plansEn[2].name} starts ${plansEn[2].price.toLowerCase()}, as a one-time payment. On top of that, ${hostingEn.name.toLowerCase()} starts ${hostingEn.price.toLowerCase()}, and optionally, ${maintenanceEn.name.toLowerCase()} starts ${maintenanceEn.price.toLowerCase()}. The final price depends on the scope, content, features and integrations required.` },
+	{ q: 'How does payment work?', a: "Development is paid with a 50% deposit to reserve your project and get started, and the remaining 50% when the site is finished and published. The delivery timeline is counted from confirmation and payment of the deposit. Domain and hosting are billed separately as an annual cost, and monthly maintenance — if you hire it — is billed month to month." },
 ];
 ---
 
@@ -23,7 +23,7 @@ const faqs = [
 	lang="en"
 	route="services"
 	title="Web Development Services & Plans"
-	description="Web development plans for small businesses in Chile: basic site, professional site and monthly maintenance."
+	description="Web development plans for small businesses in Chile: essential site, complete site, advanced site and optional monthly maintenance."
 >
 	<section class="relative overflow-hidden">
 		<div class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,var(--color-brand-100),transparent_60%)]"></div>
@@ -43,13 +43,14 @@ const faqs = [
 	</section>
 
 	<section class="mx-auto max-w-6xl px-6 pb-8">
-		<div class="grid gap-8 sm:grid-cols-2">
+		<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 			{
 				plansEn.map((plan) => (
 					<PricingCard
 						name={plan.name}
 						subtitle={plan.subtitle}
 						price={plan.price}
+						priceNote={plan.priceNote}
 						forWhom={plan.forWhom}
 						features={plan.features}
 						delivery={plan.delivery}
@@ -67,6 +68,17 @@ const faqs = [
 		</p>
 
 		<article class="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-8">
+			<h2 class="text-xl font-bold text-slate-900">{hostingEn.name}</h2>
+			<p class="mt-1 text-xl font-extrabold text-slate-900">{hostingEn.price}</p>
+			<p class="mt-3 max-w-3xl text-sm text-slate-600">{hostingEn.description}</p>
+		</article>
+
+		<article class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-8">
+			<h2 class="text-xl font-bold text-slate-900">Payment terms</h2>
+			<p class="mt-3 max-w-3xl text-sm text-slate-600">{paymentTermsEn}</p>
+		</article>
+
+		<article class="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-8">
 			<h2 class="text-xl font-bold text-slate-900">{maintenanceEn.name}</h2>
 			<p class="mt-1 text-xl font-extrabold text-slate-900">{maintenanceEn.price}</p>
 			<p class="mt-1 text-sm text-slate-500">{maintenanceEn.forWhom}</p>
